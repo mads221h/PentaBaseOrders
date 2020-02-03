@@ -1,8 +1,8 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-export class SavedOrders extends Component {
-    displayname = SavedOrders.name
+export class Templates extends Component {
+    displayname = Templates.name
     constructor(props) {
         super(props);
         this.state = { SavedOrderList: [], loading: true };
@@ -22,15 +22,15 @@ export class SavedOrders extends Component {
         _savedOrderList =
 
             SavedOrderList.map(SavedOrder =>
-            <tr key={SavedOrder.id}>
-                <td>{SavedOrder.title}</td>
-                <td>{SavedOrder.supplier}</td>
-                <td>{SavedOrder.description}</td>
-                <td>{SavedOrder.price}</td>
-                <td>
-                    <Link to={`/Adminpage/CreateOrder/${SavedOrder.id}`} key={SavedOrder.id}
-                    >Brug skabelon</Link>
-                </td>
+                <tr key={SavedOrder.id}>
+                    <td>{SavedOrder.title}</td>
+                    <td>{SavedOrder.supplier}</td>
+                    <td>{SavedOrder.description}</td>
+                    <td>{SavedOrder.price}</td>
+                    <td>
+                        <Link to={`/Adminpage/CreateOrder/${SavedOrder.id}`} key={SavedOrder.id}
+                        >Brug skabelon</Link>
+                    </td>
                 </tr>
             )
 
@@ -56,7 +56,7 @@ export class SavedOrders extends Component {
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : SavedOrders.renderSavedOrderlistTable(this.state.SavedOrderList);
+            : Templates.renderSavedOrderlistTable(this.state.SavedOrderList);
 
         return (
             <div>
