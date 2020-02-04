@@ -14,7 +14,7 @@ namespace Models
         [Required]
         public string Supplier { get; set; }
         [Required]
-        public string Projekt { get; set; }
+        public string Project { get; set; }
         [Required]
         public string Department { get; set; }
         [Required]

@@ -215,7 +215,7 @@ namespace PentaBaseOrderDemo.Controllers
                 Title = data.Title,
                 Date = DateTime.Now.ToString("yyyy-MM-dd"),
                 Supplier = data.Supplier,
-                Projekt = data.Projekt,
+                Project = data.Project,
                 Department = data.Department,
                 Description = "Description rkgmrk r,gpw viuje eobin wueji, ok,wem ue wej iemgke ,lrve efke",
                 Price = data.Price,

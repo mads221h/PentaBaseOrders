@@ -1,12 +1,27 @@
-﻿import React, { Component, Fragment } from 'react';
+﻿import React, { Component, Fragment, useState } from 'react';
 import CreateOrder from './CreateOrder'
 import { AdminConsumer } from '../../../context/AdminProvider';
 AdminConsumer
 
 
 
-function Order() {
+function Order(props) {
+    const [templateState, setTemplateState] = useState({
+        title: "",
+        price: 0,
+        supplier: "",
+    })
+    if (props.match.params.orderId === undefined) {
+        
+    }
+    else {
+        fetch(`api/SampleData/GetTemplate/${this.props.match.params.orderId}`)
+            .then(response => response.json())
+            .then(data => {
+                setTemplateState({ data });
 
+            });
+    }
 
 
     return (
@@ -30,6 +45,7 @@ function Order() {
                             departmentList={departmentList}
                             filteredWares={filteredWares}
                             updateFilter={updateFilter}
+                            template={templateState}
                         />
                         
                     </div>

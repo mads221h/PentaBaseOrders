@@ -23,5 +23,7 @@ namespace PentaBaseOrderSystem.Data
         public DbSet<Supplier> Supplier { get; set; }
         public DbSet<Template> Template { get; set; }
         public DbSet<Department> Department { get; set; }
+        public DbSet<Ware> Ware { get; set; }
+        public DbSet<Shipment> Shipment { get; set; }
     }
 }

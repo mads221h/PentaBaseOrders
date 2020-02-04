@@ -4,15 +4,7 @@ import { useState } from 'react';
 
 function CreateOrder(props) {
 
-    const [templatevalue, settemplatevalue] = useState(
-        {
-            title: template.title,
-            supplier: template.supplier,
-            price: template.price,
-
-        }
-        
-    );
+    const [templatevalue, settemplatevalue] = useState( props.template );
     
     //const [title, setTitle] = useState({});
     //const [supplier, setSupplier] = useState({});
@@ -32,12 +24,13 @@ function CreateOrder(props) {
 
 
     function handleSubmit(event) {
-        console.log('test')
         event.preventDefault();
         const data = new FormData(event.target);
         var object = {};
         data.forEach(function (value, key) {
-            object[key] = value;
+            key === 'price' ? object[key] = parseInt(value)
+                :
+                object[key] = value;
         });
         var json = JSON.stringify(object);
         fetch('api/SampleData/CreateOrder', {
@@ -45,13 +38,13 @@ function CreateOrder(props) {
             headers: { 'Content-Type': 'application/json' },
             body: json,
         });
+        alert("Din Ordrer er blevet oprettet");
     }
-    
     return (
         <form className="commentForm" onSubmit={handleSubmit}>
             <div class="form-group">
                 <label>
-                    Title: {template.title}
+                    Title: {props.template.title}
                     
                         </label>
 
@@ -68,9 +61,14 @@ function CreateOrder(props) {
                     Leverandør:
                         </label>
                 <select class="form-control" name="supplier" required onChange={handleChange}>
+                    {
+                        props.template.supplier > 0 ?
+                            (<option value={props.template.supplier}>{props.template.supplier}</option>)
+                            :
+                            (<option>Vælg Leverandør</option>)
+                    }
                     
-                    <option value={template.supplier}>{template.supplier}</option>
-                    {supplierList.map(supplier =>
+                    {props.supplierList.map(supplier =>
                         <option key={supplier.id} value={supplier.name} >{supplier.name}</option>
                     )}
                 </select>
@@ -79,20 +77,23 @@ function CreateOrder(props) {
                 <label>
                     Projekt:
                 </label>
-                <select class="form-control" name="Projekt" required>
-                    <option>Projekt 1</option>
-                    <option>Projekt 2</option>
-                    <option>Projekt 3</option>
+                <select class="form-control" name="project" required>
+                    <option>Vælg Projekt</option>
+                    {props.projectList.map(project =>
+                        <option key={project.id} value={project.title} >{project.title}</option>
+
+                    )}
                 </select>
             </div>
             <div class="form-group">
                 <label>
                     Afdeling:
                 </label>
-                <select class="form-control" name="Department" required>
-                    <option>Department 1</option>
-                    <option>Department 2</option>
-                    <option>Department 3</option>
+                <select class="form-control" name="department" required>
+                    <option>Vælg Afdeling</option>
+                    {props.departmentList.map(department =>
+                        <option key={department.id} value={department.title} >{department.title}</option>
+                    )}
                 </select>
             </div>
             <div class="form-group">
