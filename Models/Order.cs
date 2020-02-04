@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Models
@@ -25,6 +26,8 @@ namespace Models
         public bool Approval { get; set; }
         [Required]
         public bool Payment { get; set; }
+
+        public List<Shipment> Shipments { get; set; }
 
     }
 }

@@ -13,5 +13,7 @@ namespace Models
         public int Price { get; set; }
         public string Name { get; set; }
         public string Info { get; set; }
+        public List<Shipment> Shipments { get; set; }
+        public Supplier Supplier { get; set; }
     }
 }

@@ -25,5 +25,25 @@ namespace PentaBaseOrderSystem.Data
         public DbSet<Department> Department { get; set; }
         public DbSet<Ware> Ware { get; set; }
         public DbSet<Shipment> Shipment { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Shipment>()
+                .HasOne(p => p.Ware)
+                .WithMany(b => b.Shipments)
+                .HasForeignKey(p => p.WareId);
+
+            modelBuilder.Entity<Shipment>()
+                .HasOne(p => p.Order)
+                .WithMany(b => b.Shipments)
+                .HasForeignKey(p => p.OrderId);
+
+            modelBuilder.Entity<Ware>()
+                .HasOne(p => p.Supplier)
+                .WithMany(b => b.Wares)
+                .HasForeignKey(p => p.SupplierId);
+        }
     }
 }
