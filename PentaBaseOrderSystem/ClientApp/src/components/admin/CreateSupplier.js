@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import CreateOrder from './CreateOrder';
+import CreateOrder from './order/CreateOrder';
 
 
 

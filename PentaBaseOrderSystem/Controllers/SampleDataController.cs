@@ -259,8 +259,14 @@ namespace PentaBaseOrderDemo.Controllers
         [HttpDelete("[action]")]
         public void Delete([FromBody] Project data)
         {
-            _db.Remove(_db.Project.Single(x => x.Id == data.Id));
-            _db.SaveChanges();
+            if (data is null)
+            {
+
+            }
+            else{
+                _db.Remove(_db.Project.Single(x => x.Id == data.Id));
+                _db.SaveChanges();
+            }
             
         }
         public class PentaShoppingorder

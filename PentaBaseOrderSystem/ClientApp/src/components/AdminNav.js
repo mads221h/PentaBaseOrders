@@ -18,7 +18,7 @@ export class AdminNav extends Component {
 
                         <LinkContainer to={'/AdminPage/CreateOrder'}>
                             <NavItem>
-                        <FaList /> Opret Ordre
+                        <FaList /> Ordre
                         </NavItem>
                         </LinkContainer>
                 <NavItem>
@@ -27,24 +27,24 @@ export class AdminNav extends Component {
                 <NavItem>
                     <NavLink tag={Link} className="text-dark" to="/Oprettelser/OpretOrdre">Opret Ordre</NavLink>
                 </NavItem>
-                        <LinkContainer to={'/AdminPage/CreateProjekt'}>
+                        <LinkContainer to={'/Admin/Projekt'}>
                             <NavItem>
-                                 Opret Project
+                                 Project
                         </NavItem>
                         </LinkContainer>
-                        <LinkContainer to={'/AdminPage/CreateSupplier'}>
+                        <LinkContainer to={'/Admin/Supplier'}>
                             <NavItem>
-                                 Opret Leverandør
+                                 Leverandør
                         </NavItem>
                 </LinkContainer>
-                <LinkContainer to={'/AdminPage/CreateTemplate'}>
+                <LinkContainer to={'/Admin/Template'}>
                     <NavItem>
-                        Opret skabelon
+                        skabelon
                         </NavItem>
                 </LinkContainer>
-                <LinkContainer to={'/AdminPage/CreateDepartment'}>
+                <LinkContainer to={'/Admin/Department'}>
                     <NavItem>
-                         Opret Afdeling
+                         Afdeling
                         </NavItem>
                 </LinkContainer>
 

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 
-function CreateOrder({ supplierList, template}) {
+function CreateOrder(props) {
 
     const [templatevalue, settemplatevalue] = useState(
         {

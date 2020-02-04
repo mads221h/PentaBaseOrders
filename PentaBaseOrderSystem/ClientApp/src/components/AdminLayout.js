@@ -8,8 +8,9 @@ export class AdminLayout extends Component {
     render() {
         return (
             
-                    <div>
-                        <AdminNav />
+            <div>
+
+                        
 
                 <Container>
                         {this.props.children}

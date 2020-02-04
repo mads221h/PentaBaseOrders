@@ -46,24 +46,24 @@ export class NavMenu extends Component {
                             </NavItem>
                             <UncontrolledDropdown>
                                 <DropdownToggle nav caret>
-                                        Oprettelser
+                                        Admin
                                   </DropdownToggle>
 
                                 <DropdownMenu nav inNavbar>
                                     <DropdownItem>
-                                            <NavLink tag={Link} className="text-dark" to="/OpretOrdre">Opret Ordre</NavLink>
+                                            <NavLink tag={Link} className="text-dark" to="/Admin/Ordre">Ordre</NavLink>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        <NavLink tag={Link} className="text-dark" to="/OpretAfdeling">Opret Afdeling</NavLink>
+                                        <NavLink tag={Link} className="text-dark" to="/Admin/Afdeling">Afdeling</NavLink>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        <NavLink tag={Link} className="text-dark" to="OpretSkabelon">Opret Skabelon</NavLink>
+                                        <NavLink tag={Link} className="text-dark" to="/Admin/Skabelon">Skabelon</NavLink>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        <NavLink tag={Link} className="text-dark" to="/OpretLeverandoer">Opret Leverandør</NavLink>
+                                        <NavLink tag={Link} className="text-dark" to="/Admin/Leverandoer">Leverandør</NavLink>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        <NavLink tag={Link} className="text-dark" to="/OpretProjekt">Opret Projekt</NavLink>
+                                        <NavLink tag={Link} className="text-dark" to="/Admin/Project">Projekt</NavLink>
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
