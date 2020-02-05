@@ -65,6 +65,12 @@ namespace PentaBaseOrderDemo.Controllers
             return _db.Project.ToList();
         }
         [HttpGet("[action]")]
+        public IEnumerable<Ware> GetWareList()
+        {
+
+            return _db.Ware.ToList();
+        }
+        [HttpGet("[action]")]
         public IEnumerable<Template> GetTemplateList()
         {
 
@@ -163,6 +169,22 @@ namespace PentaBaseOrderDemo.Controllers
             };
 
             _db.Department.Add(department);
+            _db.SaveChanges();
+
+        }
+        [HttpPost("[action]")]
+        public void CreateWare([FromBody] Ware data)
+        {
+            
+            var Ware = new Ware
+            {
+                Name = data.Name,
+                SupplierId = data.SupplierId,
+                Price = data.Price,
+                Info = data.Info,
+            };
+
+            _db.Ware.Add(Ware);
             _db.SaveChanges();
 
         }

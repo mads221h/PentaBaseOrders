@@ -35,6 +35,7 @@ function Order(props) {
                     departmentList,
                     projectList,
                     filteredWares,
+                    shipmentList,
                     updateFilter, } = value
                 return (
                     <div classname='Container'>
@@ -46,6 +47,7 @@ function Order(props) {
                             filteredWares={filteredWares}
                             updateFilter={updateFilter}
                             template={templateState}
+                            shipmentList={shipmentList}
                         />
                         
                     </div>

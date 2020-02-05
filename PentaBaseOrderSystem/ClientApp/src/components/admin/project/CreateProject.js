@@ -40,10 +40,6 @@ function CreateProject() {
                         </label>
                     <input type="text" name="Owner" class="form-control" required />
                 </div>
-
-
-
-
                 <input type="submit" class="btn btn-primary" value="Submit" />
             </form>
             

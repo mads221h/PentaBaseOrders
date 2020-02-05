@@ -65,7 +65,7 @@ function CreateOrder(props) {
                         props.template.supplier > 0 ?
                             (<option value={props.template.supplier}>{props.template.supplier}</option>)
                             :
-                            (<option>Vælg Leverandør</option>)
+                            (<option disabled>Vælg Leverandør</option>)
                     }
                     
                     {props.supplierList.map(supplier =>
