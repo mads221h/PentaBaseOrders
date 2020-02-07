@@ -1,11 +1,21 @@
 ﻿import React from 'react';
+
 import { useState } from 'react';
+
+import { Fragment } from 'react';
 
 
 function CreateOrder(props) {
 
-    const [templatevalue, settemplatevalue] = useState( props.template );
-    
+    const [templatevalue, settemplatevalue] = useState(props.template);
+    //const [shipmentListState, setShipmentListState] = useState([]);
+    const [orderState, setOrderState] = useState(props.orderState)
+    //const addShipment = (item) => {
+        
+    //    setShipmentListState(shipmentListState.concat(item));
+    //    setOrderState(orderState.shipments.concat({ wareId: item.wareId }));
+
+    //}
     //const [title, setTitle] = useState({});
     //const [supplier, setSupplier] = useState({});
     //const [price, setPrice] = useState({ });
@@ -14,13 +24,20 @@ function CreateOrder(props) {
 
     function handleChange(evt) {
         const value = evt.target.value;
-        settemplatevalue({
-            ...templatevalue,
-            [evt.target.name]: value
-        });
+        if (evt.target.name == "price") {
+            setOrderState({
+                ...orderState,
+                [evt.target.name]: parseInt(value)
+            });
+        }
+        else {
+            setOrderState({
+                ...orderState,
+                [evt.target.name]: value
+            });
+        }
     }
 
- 
 
 
     function handleSubmit(event) {
@@ -37,20 +54,26 @@ function CreateOrder(props) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: json,
-        });
+        }).then(response => response.json())
+            .then(json => { console.log(json) })
+            
+        
         alert("Din Ordrer er blevet oprettet");
     }
+
     return (
-        <form className="commentForm" onSubmit={handleSubmit}>
+        <Fragment>
+            <form className="commentForm" onSubmit={handleSubmit}
+                onChange={() => props.updateOrderState(orderState)}>
             <div class="form-group">
-                <label>
-                    Title: {props.template.title}
+                    <label>
+                        Title: {props.orderState.title}
                     
                         </label>
 
                 <input type="text"
                     name="title"
-                    value={templatevalue.title}
+                        value={orderState.title}
                     class="form-control"
                     required
                     onChange={handleChange}
@@ -60,10 +83,10 @@ function CreateOrder(props) {
                 <label>
                     Leverandør:
                         </label>
-                <select class="form-control" name="supplier" required onChange={handleChange}>
+                    <select class="form-control" name="supplier" value={orderState.supplier} required onChange={handleChange}>
                     {
-                        props.template.supplier > 0 ?
-                            (<option value={props.template.supplier}>{props.template.supplier}</option>)
+                            props.orderState.supplier > 0 ?
+                                (<option value={props.orderState.supplier}>{props.orderState.supplier}</option>)
                             :
                             (<option disabled>Vælg Leverandør</option>)
                     }
@@ -77,7 +100,7 @@ function CreateOrder(props) {
                 <label>
                     Projekt:
                 </label>
-                <select class="form-control" name="project" required>
+                    <select class="form-control" name="project" value={orderState.project} onChange={handleChange} required>
                     <option>Vælg Projekt</option>
                     {props.projectList.map(project =>
                         <option key={project.id} value={project.title} >{project.title}</option>
@@ -89,7 +112,7 @@ function CreateOrder(props) {
                 <label>
                     Afdeling:
                 </label>
-                <select class="form-control" name="department" required>
+                    <select class="form-control" name="department" value={orderState.department} onChange={handleChange} required>
                     <option>Vælg Afdeling</option>
                     {props.departmentList.map(department =>
                         <option key={department.id} value={department.title} >{department.title}</option>
@@ -101,15 +124,18 @@ function CreateOrder(props) {
                     Pris:
                         </label>
 
-                <input type="number" name="price" value={templatevalue.price} class="form-control" required
+                    <input type="number" name="price" value={orderState.price} class="form-control" required
                     onChange={handleChange}
                 />
 
             </div>
 
+            
+            
+            
+            </form>
 
-            <input type="submit" class="btn btn-primary" value="Submit" />
-        </form>
+        </Fragment>
     );
 }
 export default CreateOrder;

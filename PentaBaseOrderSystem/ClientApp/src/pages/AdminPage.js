@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Route} from 'react-router';
 import { AdminLayout } from '../components/AdminLayout';
-import  Order  from '../components/admin/order/Order';
+import { Order }  from '../components/admin/order/Order';
 import Project from '../components/admin/project/Project';
 import Ware from '../components/admin/ware/Ware';
 import CreateSupplier from '../components/admin/CreateSupplier';

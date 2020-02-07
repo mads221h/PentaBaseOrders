@@ -2,20 +2,11 @@
 
 
 
-function ShipmentListItem(props) {
+function WareListItem(props) {
 
     const [itemState, setItemState] = useState(props.item);
-
     const handleDelete = (item) => {
-        console.log(item)
-
-
-        var json = JSON.stringify(item);
-        fetch('api/SampleData/DeleteShipment', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: json,
-        });
+        
         setItemState();
     }
     return (
@@ -23,18 +14,19 @@ function ShipmentListItem(props) {
             {
                 itemState ?
                     (
-                        <tr key={itemState.wareId}>
+                        <tr>
                             <td>{itemState.name}</td>
                             <td>{itemState.price}</td>
+                            <td><button class="form-control" onClick={() => props.addShipment(itemState)}>Add</button></td>
                             <td><button class="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
                         </tr>
                     )
                     :
                     (<td>Deleted </td>)
             }
-
-        </Fragment>
+            
+            </Fragment>
     )
 
 }
-export default ShipmentListItem
+export default WareListItem

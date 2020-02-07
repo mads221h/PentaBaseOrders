@@ -19,12 +19,7 @@ class WareFilter extends React.Component {
                     onChange={() => setTimeout(() => this.props.updateFilter(this.state), 0)}
                 >
                     <p className="mb-1">Vælg Leverandør</p>
-                    
                     <div className={styles.formColumns}>
-                        <label className="form-label" htmlFor="supplier">
-                            Leverandør
-                  </label>
-
                         <select className="form-select" id="supplier"
                             value={this.state.supplier}
                             onChange={event => this.setState({ supplier: event.target.value })}>

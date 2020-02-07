@@ -225,7 +225,7 @@ namespace PentaBaseOrderDemo.Controllers
         }
 
         [HttpPost("[action]")]
-        public void CreateOrder([FromBody] Order data)
+        public Order CreateOrder([FromBody] Order data)
         {
             bool _priceBool = false;
             if(data.Price <= 10000)
@@ -243,12 +243,12 @@ namespace PentaBaseOrderDemo.Controllers
                 Price = data.Price,
                 Approval = _priceBool,
                 Payment = false,
+                Shipments = data.Shipments,
             };
-          
             _db.Order.Add(order);
             _db.SaveChanges();
 
-
+            return order;
             //var response = await _client.PostAsJsonAsync(BaseEndPoint, data);
             //response.EnsureSuccessStatusCode();
         }

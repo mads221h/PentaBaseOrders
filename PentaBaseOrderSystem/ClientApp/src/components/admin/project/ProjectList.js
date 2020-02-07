@@ -35,13 +35,15 @@ function ProjectList(props) {
                     <th>Projekter</th>
                 </tr>
             </thead>
+            <tbody>
             {props.projectList.map(item =>
                 <ProjectListItem item={item} />
                 //<tr key={item.id}>
                 //    <td>{item.title}</td>
                 //    <td><button class="form-control" onClick={(e) => handleDelete(item)}>Delete</button></td>
                 //</tr>
-            )}
+                )}
+                </tbody>
         </table>
         )
 }

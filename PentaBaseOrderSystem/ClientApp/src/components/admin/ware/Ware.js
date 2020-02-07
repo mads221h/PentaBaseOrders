@@ -3,7 +3,7 @@ import WareList from './WareList';
 import { AdminConsumer } from '../../../context/AdminProvider';
 import CreateWare from './CreateWare';
 import WareFilter from './WareFilter';
-import { tabs, tab } from 'reactstrap';
+import { Tabs, Tab } from 'react-bootstrap';
 
 
 
@@ -15,14 +15,17 @@ function Project() {
                 return (
                     <div classname='Container'>
                         <h1>Varer</h1>
-                       
+                        <Tabs defaultActiveKey="OverView">
+                            <Tab eventKey="OverView" title="Overblik">
                                 <h3>Overblik</h3>
                                 <WareFilter updateFilter={updateFilter} supplier={supplierList} />
                                 <WareList wareList={filteredWares} />
-                            
+                            </Tab>
+
+                            <Tab eventKey="Opret" title="Opret">
                                 <CreateWare supplierList={supplierList} />
-                            
-                        
+                            </Tab>
+                        </Tabs>
 
                     </div>
                 )

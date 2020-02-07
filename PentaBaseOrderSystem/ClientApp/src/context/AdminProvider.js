@@ -7,8 +7,24 @@ const DefaultState = {
     wareList: [],
     supplierList: [],
     projectList: [],
-    shipmentList: [],
+    //shipmentList: [],
     filter: {},
+    template: {
+        title: "",
+        price: 0,
+        supplier: "",
+        description: "",
+
+    },
+    orderState: {
+        title: "",
+        supplier: "",
+        project: "",
+        department: "",
+        price: 0,
+        shipments: [],
+    },
+    shipmentListState: [],
 }
 const AdminContext = React.createContext(DefaultState)
 
@@ -23,7 +39,7 @@ export class AdminProvider extends React.Component {
         this.populateDepartment();
         this.populateProject();
         this.populateWares();
-        this.populateShipment();
+        //this.populateShipment();
     }
 
     async populateProject() {
@@ -74,6 +90,27 @@ export class AdminProvider extends React.Component {
             filter
         })
     }
+    updateOrderState = orderState => {
+        this.setState({
+            orderState
+        })
+    }
+    handleCreate = () => {
+        const object = this.state.orderState;
+        
+        var json = JSON.stringify(object);
+        fetch('api/SampleData/CreateOrder', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: json,
+        })
+            //.then(response => response.json())
+            //.then(json => { console.log(json) })
+
+
+        alert("Din Ordrer er blevet oprettet");
+    }
+
     static getSupplierWares(wares, filter) {
         const { supplier, } = filter
         let result = wares
@@ -84,9 +121,34 @@ export class AdminProvider extends React.Component {
         return result
         
     }
+    static getOrderShipment(shipments, filter) {
+        const { order, } = filter
+        let result = shipments
+        if (order) {
+            result = result.filter(item => item.orderId == order)
+
+        }
+        return result
+
+    }
+    addShipment = (item) => {
+        this.setState(prevState => ({
+            ...prevState,
+            orderState: {
+                ...prevState.orderState,
+                shipments: prevState.orderState.shipments.concat({ wareId: item.wareId })
+                //shipments: [...prevState.orderState.shipments, { wareId: item.wareId }]
+            }
+            
+        }))
+        this.setState({
+            shipmentListState: this.state.shipmentListState.concat(item)
+        })
+
+    }
     render() {
         const { children } = this.props
-        const { projectList, filter, supplierList, departmentList, wareList, shipmentList, } = this.state
+        const { projectList, filter, supplierList, departmentList, wareList, shipmentList, shipmentListState, orderState, template } = this.state
         const filteredWares = AdminProvider.getSupplierWares(
             wareList,
             filter
@@ -99,7 +161,14 @@ export class AdminProvider extends React.Component {
                     projectList,
                     shipmentList,
                     filteredWares,
+                    template,
+                    shipmentListState,
+                    orderState,
                     updateFilter: this.updateFilter,
+                    addShipment: this.addShipment,
+                    updateOrderState: this.updateOrderState,
+                    handleCreate: this.handleCreate,
+                    
                 }}
             >
                 {children}

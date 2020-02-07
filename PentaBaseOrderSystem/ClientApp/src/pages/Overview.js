@@ -32,7 +32,7 @@ export class Overview extends Component {
                                 <div classname='Container'>
                                     <Filter updateFilter={updateFilter} supplier={supplierList} />
 
-                                    <Listings listings={filteredListings} />
+                                    <Listings listings={filteredListings}  />
                                 </div>
                             )
                         }}
