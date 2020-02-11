@@ -227,20 +227,29 @@ namespace PentaBaseOrderDemo.Controllers
         [HttpPost("[action]")]
         public Order CreateOrder([FromBody] Order data)
         {
+            int totalPrice = 0;
             bool _priceBool = false;
-            if(data.Price <= 10000)
+            foreach (Shipment I in data.Shipments)
+            {
+                
+                var ware = _db.Ware.FirstOrDefault(x => x.WareId == I.WareId);
+                totalPrice = totalPrice + (ware.Price * I.Count);
+            }
+            if (totalPrice <= 10000)
             {
                 _priceBool = true;
             };
+            var supplier = _db.Supplier.FirstOrDefault(x => x.Id == data.Shipments[1].ShipmentId);
             var order = new Order
             {
                 Title = data.Title,
                 Date = DateTime.Now.ToString("yyyy-MM-dd"),
-                Supplier = data.Supplier,
+                Supplier = supplier.Name,
                 Project = data.Project,
                 Department = data.Department,
                 Description = "Description rkgmrk r,gpw viuje eobin wueji, ok,wem ue wej iemgke ,lrve efke",
-                Price = data.Price,
+                Price = totalPrice,
+                
                 Approval = _priceBool,
                 Payment = false,
                 Shipments = data.Shipments,

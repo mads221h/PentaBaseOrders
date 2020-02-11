@@ -3,6 +3,7 @@ import CreateOrder from './CreateOrder'
 import ShipmentList from './ShipmentList';
 import WareList from './WareList';
 import WareFilter from '../ware/WareFilter';
+import OrderDetails from './OrderDetails';
 import { AdminConsumer } from '../../../context/AdminProvider';
 import { Tabs, Tab } from 'react-bootstrap';
 AdminConsumer
@@ -66,13 +67,16 @@ export class Order extends Component {
                             //shipmentList,
                             updateOrderState,
                             handleCreate,
+                            removeShipment,
+                            removeOneShipment,
+                            handleOrderChange,
                             updateFilter, } = value
                         return (
                             <div classname='Container'>
 
                                 <h2 class="blue" >Opret Ordre</h2>
                                 <Tabs defaultActiveKey="Info">
-                                    <Tab eventKey="Info" title="Info">
+                                    <Tab eventKey="Info" title="1: Indtast info">
                                         <CreateOrder
                                             supplierList={supplierList}
                                             projectList={projectList}
@@ -82,18 +86,20 @@ export class Order extends Component {
                                             template={template}
                                             orderState={orderState}
                                             updateOrderState={updateOrderState}
+                                            handleOrderChange={handleOrderChange}
                                             
                                         />
                                     </Tab>
-                                    <Tab eventKey="AddWares" title="tilføj vare">
+                                    <Tab eventKey="AddWares" title="1: Tilføj vare">
                                         <WareFilter updateFilter={updateFilter} supplier={supplierList} />
 
                                         <WareList wareList={filteredWares}
                                             addShipment={addShipment}
                                         />
-                                        <ShipmentList shipmentList={shipmentListState} />
+                                        <ShipmentList shipmentList={orderState} removeShipment={removeOneShipment} />
                                     </Tab>
-                                    <Tab eventKey="Confirm" title="Godkend og opret">
+                                    <Tab eventKey="Confirm" title="3: Godkend og opret">
+                                        <OrderDetails orderState={orderState} removeShipment={removeOneShipment}/>
 
                                         <button class="form-control" onClick={handleCreate} > Opret Order</button>
                                     </Tab>

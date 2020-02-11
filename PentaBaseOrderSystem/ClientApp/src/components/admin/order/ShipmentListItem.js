@@ -3,36 +3,23 @@
 
 
 function ShipmentListItem(props) {
-
-    const [itemState, setItemState] = useState(props.item);
-
     const handleDelete = (item) => {
-        console.log(item)
-
-
-        var json = JSON.stringify(item);
-        fetch('api/SampleData/DeleteShipment', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: json,
-        });
-        setItemState();
+        props.removeShipment(item)
     }
     return (
         <Fragment>
             {
-                itemState ?
+                
                     (
-                        <tr key={itemState.wareId}>
-                            <td>{itemState.name}</td>
-                            <td>{itemState.price}</td>
-                            <td><button class="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
+                        <tr key={props.item.wareId}>
+                            <td>{props.item.name}</td>
+                        <td>{props.item.price} kr</td>
+                        <td>{props.item.count}</td>
+                            <td><button class="form-control" onClick={(e) => handleDelete(props.item)}>Delete</button></td>
                         </tr>
                     )
-                    :
-                    (<td>Deleted </td>)
-            }
 
+            }
         </Fragment>
     )
 
