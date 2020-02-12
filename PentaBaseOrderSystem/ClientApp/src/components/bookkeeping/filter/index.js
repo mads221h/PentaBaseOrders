@@ -11,7 +11,10 @@ class Filter extends React.Component {
         sortOrders: ['Highest First', 'Lowest First'],
         dateFrom: '',
         dateTo: '',
-
+        approval: '',
+        payment: '',
+        approvals: ['Er Godkendt', 'Ikke Godkendt'],
+        payments: ['Er Betalt', 'Ikke Betalt'],
     }
   render() {
     const containerClasses = classnames('container', 'mb-1', styles.container)
@@ -25,7 +28,7 @@ class Filter extends React.Component {
             <form className={formClasses} noValidate
                 onChange={() => setTimeout(() => this.props.updateFilter(this.state), 0)}
             >
-                  <p className="mb-1">Refine your results</p>
+                  <p className="mb-1">Filtrer listen</p>
                 <div className={styles.formColumns}>
                     <label className="form-label" htmlFor="price-from">
                     Pris Fra
@@ -95,6 +98,38 @@ class Filter extends React.Component {
                           value={this.state.dateTo}
                           onChange={event => this.setState({ dateTo: event.target.value })}
                       />
+                  </div>
+                  <div className={styles.formColumns}>
+                      <label className="form-label" htmlFor="approval">
+                          Godkendelse
+                  </label>
+
+                      <select className="form-select" id="approval"
+                          value={this.state.approval}
+                          onChange={event => this.setState({ approval: event.target.value })}>
+                          <option value="">Vælg...</option>
+                          {this.state.approvals.map(approval => (
+                              <option key={approval} value={approval.replace(' ', '').toLowerCase()}>
+                                  {approval}
+                              </option>
+                          ))}
+                      </select>
+                  </div>
+                  <div className={styles.formColumns}>
+                      <label className="form-label" htmlFor="payment">
+                          Betaling
+                  </label>
+
+                      <select className="form-select" id="payment"
+                          value={this.state.paymentr}
+                          onChange={event => this.setState({ payment: event.target.value })}>
+                          <option value="">Vælg...</option>
+                          {this.state.payments.map(payment => (
+                              <option key={payment} value={payment.replace(' ', '').toLowerCase()}>
+                                  {payment}
+                              </option>
+                          ))}
+                      </select>
                   </div>
               </form>
               

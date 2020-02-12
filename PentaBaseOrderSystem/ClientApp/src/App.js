@@ -12,6 +12,7 @@ import { ApplicationPaths } from './components/api-authorization/ApiAuthorizatio
 import './custom.css'
 import { AdminPage } from './pages/AdminPage';
 import { Overview } from './pages/Overview';
+import { BookKeeping } from './pages/Bookkeeping';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -24,6 +25,7 @@ export default class App extends Component {
             <AuthorizeRoute path='/counter' component={Counter} />
             <AuthorizeRoute path='/Skabeloner' component={Templates} />
             <AuthorizeRoute path='/fetch-data' component={FetchData} />
+            <Route path='/Bookkeeping' component={BookKeeping} />
             
             <Route path='/Admin' component={AdminPage} />
             

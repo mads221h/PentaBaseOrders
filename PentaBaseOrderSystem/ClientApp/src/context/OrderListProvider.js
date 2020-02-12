@@ -33,7 +33,7 @@ export class OrderListProvider extends React.Component {
         })
     }
     static applyFilter(listings, filter) {
-        const { priceFrom, supplier, sortOrder, dateFrom, dateTo } = filter
+        const { priceFrom, supplier, sortOrder, dateFrom, dateTo, approval, payment } = filter
 
         let result = listings
         if (priceFrom) {
@@ -49,6 +49,22 @@ export class OrderListProvider extends React.Component {
             }
             if (sortOrder === 'lowestfirst') {
                 result = result.sort((a, b) => a.price - b.price)
+            }
+        }
+        if (approval) {
+            if (approval === 'ergodkendt') {
+                result = result.filter(item => item.approval == true)
+            }
+            if (approval === 'ikkegodkendt') {
+                result = result.filter(item => item.approval == false)
+            }
+        }
+        if (payment) {
+            if (payment === 'erbetalt') {
+                result = result.filter(item => item.payment == true)
+            }
+            if (payment === 'ikkebetalt') {
+                result = result.filter(item => item.payment == false)
             }
         }
         //Does array.filter work with Date?

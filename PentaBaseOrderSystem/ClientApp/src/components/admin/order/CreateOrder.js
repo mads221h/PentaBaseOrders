@@ -89,7 +89,7 @@ function CreateOrder(props) {
                             props.orderState.supplier > 0 ?
                                 (<option value={props.orderState.supplier}>{props.orderState.supplier}</option>)
                             :
-                            (<option disabled>Vælg Leverandør</option>)
+                            (<option>Vælg Leverandør</option>)
                     }
                     
                     {props.supplierList.map(supplier =>
@@ -120,20 +120,6 @@ function CreateOrder(props) {
                     )}
                 </select>
             </div>
-            <div class="form-group">
-                <label>
-                    Pris:
-                        </label>
-
-                    <input type="number" name="price" value={props.orderState.price} class="form-control" required
-                        onChange={props.handleOrderChange}
-                />
-
-            </div>
-
-            
-            
-            
             </form>
 
         </Fragment>
