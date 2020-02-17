@@ -1,9 +1,13 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 
 
 function BookItem({ listing }) {
-    const [paymentState, setPaymentState] = useState({ payment: listing.payment });
+    const [paymentState, setPaymentState] = useState(listing.payment);
+    useEffect(() => {
+        setPaymentState(listing.payment);
+    }, [listing]);
     
     const handlePayment = (listing) => {
         console.log(listing)
@@ -32,7 +36,7 @@ function BookItem({ listing }) {
                                 :
                                 (<td style={{ backgroundColor: 'rgba(255, 0, 0, 0.6)' }}>Ikke Godkendt</td>)
             }{
-                paymentState.payment ?
+                paymentState ?
                                 (
                                     <td> <p>Betalt</p></td>)
                                 :
@@ -40,7 +44,7 @@ function BookItem({ listing }) {
                                     <td><p>Mangler betaling</p></td>
                                 )
             }{
-                paymentState.payment ?
+                paymentState ?
                                 (
                                     <td> </td>)
                                 :
@@ -50,6 +54,10 @@ function BookItem({ listing }) {
                                     </td>
                                 )
             }
+            <td><Link to={{
+                pathname: '/Admin/OrdreDetails',
+                state: { orderState: listing }
+            }}>Detaljer</Link></td>
         </tr>
         )
                 

@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 
 
 function Item({ listing }) {
@@ -31,7 +31,12 @@ function Item({ listing }) {
                         <td><p>Mangler betaling</p></td>
                     )
             }
+            <td><Link to={{
+                pathname: '/Admin/OrdreDetails',
+                state: { orderState: listing }
+            }}>Detaljer</Link></td>
         </tr>
+
     )
 
 }

@@ -3,7 +3,6 @@
 function CreateWare(props) {
 
     function handleSubmit(event) {
-        console.log('test')
         event.preventDefault();
         const data = new FormData(event.target);
         var object = {};
@@ -40,7 +39,7 @@ function CreateWare(props) {
                         </label>
                     <select class="form-control" name="SupplierId" required>
                     {props.supplierList.map(supplier =>
-                        <option key={supplier.id} value={supplier.id} >{supplier.name}</option>
+                        <option key={supplier.supplierId} value={supplier.supplierId} >{supplier.name}</option>
                         )}
                     </select>
                 </div>

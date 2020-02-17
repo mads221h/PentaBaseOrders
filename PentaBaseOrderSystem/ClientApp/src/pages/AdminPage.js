@@ -8,6 +8,7 @@ import CreateSupplier from '../components/admin/CreateSupplier';
 import CreateTemplate from '../components/admin/CreateTemplate';
 import CreateDepartment from '../components/admin/CreateDepartment';
 import { AdminProvider } from '../context/AdminProvider';
+import OrderDetails from '../components/admin/order/OrderDetails';
 
 export class AdminPage extends Component {
     displayName = AdminPage.name
@@ -18,7 +19,8 @@ export class AdminPage extends Component {
         return (
             <AdminProvider>
                 <AdminLayout>
-                    <Route path='/Admin/Ordre/:orderId?' component={Order} />
+                    <Route path='/Admin/Ordre' component={Order} />
+                    <Route path='/Admin/OrdreDetails' component={OrderDetails} />
                     <Route path='/Admin/Project' component={Project} />
                     <Route path='/Admin/vare' component={Ware} />
                     <Route path='/Admin/Leverandoer' component={CreateSupplier} />

@@ -8,13 +8,14 @@ namespace Models
     public class Department
     {
         [Key]
-        public int Id { get; set; }
+        public int DepartmentId { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
         public string Leader { get; set; }
         [Required]
         public string Location { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }
 

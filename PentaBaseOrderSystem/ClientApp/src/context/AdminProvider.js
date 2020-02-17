@@ -18,7 +18,7 @@ const DefaultState = {
     },
     orderState: {
         title: "",
-        supplier: "",
+        supplierName:"",
         project: "",
         department: "",
         price: 0,
@@ -97,7 +97,8 @@ export class AdminProvider extends React.Component {
     }
     handleOrderChange = e => {
         e.persist()
-    const value = e.target.value;
+        const value = e.target.value;
+        
         if (e.target.name == "price") {
             this.setState(prevState => ({
                 ...prevState,
@@ -106,7 +107,46 @@ export class AdminProvider extends React.Component {
                     [e.target.name]: parseInt(value)
                 }
             }))
-    }
+        }
+        else if (e.target.name == "supplierId") {
+            const _supplier = this.state.supplierList.find(item => item.supplierId == value);
+            this.setState(prevState => ({
+                ...prevState,
+                orderState: {
+                    ...prevState.orderState,
+                    [e.target.name]: parseInt(value),
+                    supplier: _supplier,
+                    supplierName: _supplier.name,
+                }
+
+            }))
+        }
+        else if (e.target.name == "projectId") {
+            const _project = this.state.projectList.find(item => item.projectId == value);
+            this.setState(prevState => ({
+                ...prevState,
+                orderState: {
+                    ...prevState.orderState,
+                    [e.target.name]: parseInt(value),
+                    project: _project,
+                    projectTitle: _project.title,
+                }
+
+            }))
+        }
+        else if (e.target.name == "departmentId") {
+            const _department = this.state.departmentList.find(item => item.departmentId == value);
+            this.setState(prevState => ({
+                ...prevState,
+                orderState: {
+                    ...prevState.orderState,
+                    [e.target.name]: parseInt(value),
+                    department: _department,
+                    departmentTitle: _department.title,
+                }
+
+            }))
+        }
     else {
             this.setState(prevState => ({
                 ...prevState,
@@ -120,7 +160,6 @@ export class AdminProvider extends React.Component {
 }
     handleCreate = () => {
         const object = this.state.orderState;
-        
         var json = JSON.stringify(object);
         fetch('api/SampleData/CreateOrder', {
             method: 'POST',
@@ -155,13 +194,13 @@ export class AdminProvider extends React.Component {
 
     }
     addShipment = (item) => {
-        if (this.state.orderState.shipments.some(i => (i.wareId === item.wareId))) {
+        if (this.state.orderState.shipments.some(i => (i.name === item.name))) {
             this.setState(prevState => ({
                 ...prevState,
                 orderState: {
                     ...prevState.orderState,
                     shipments: prevState.orderState.shipments.map((shipment) => {
-                        if (shipment.wareId == item.wareId) {
+                        if (shipment.name == item.name) {
                             return {
                                 ...shipment,
                                 count: shipment.count + 1,
@@ -177,7 +216,8 @@ export class AdminProvider extends React.Component {
                 ...prevState,
                 orderState: {
                     ...prevState.orderState,
-                    shipments: prevState.orderState.shipments.concat({ wareId: item.wareId, count: 1, price: item.price, name: item.name })
+                    shipments: prevState.orderState.shipments.concat({ count: 1, price: item.price, name: item.name }),
+                    //supplier: prevState.orderState.supplier: item.supplier
                 }
 
             }))

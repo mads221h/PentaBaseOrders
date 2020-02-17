@@ -2,7 +2,7 @@
 
 
 
-function ProjectListItem(props) {
+function SupplierListItem(props) {
 
     const [itemState, setItemState] = useState( props.item );
 
@@ -23,7 +23,7 @@ function ProjectListItem(props) {
             {
                 itemState ?
                     (
-                        <tr key={itemState.projectId}>
+                        <tr key={itemState.SupplierId}>
                             <td>{itemState.title}</td>
                             <td><button class="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
                         </tr>
@@ -36,4 +36,4 @@ function ProjectListItem(props) {
     )
 
 }
-export default ProjectListItem
+export default SupplierListItem

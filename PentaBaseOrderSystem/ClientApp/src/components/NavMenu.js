@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
+import {
+    Collapse, Container, Navbar, NavbarBrand, NavbarToggler,
+    NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,
+} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'bootstrap';
 import { LoginMenu } from './api-authorization/LoginMenu';
@@ -43,6 +46,9 @@ export class NavMenu extends Component {
                             </NavItem>
                             <NavItem>
                                 <NavLink tag={Link} className="text-dark" to="/Bookkeeping">Bookkeeping</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-dark" to="/Godkendelser">Godkendelser</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink tag={Link} className="text-dark" to="/Skabeloner">Skabeloner</NavLink>

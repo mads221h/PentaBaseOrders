@@ -13,6 +13,7 @@ import './custom.css'
 import { AdminPage } from './pages/AdminPage';
 import { Overview } from './pages/Overview';
 import { BookKeeping } from './pages/Bookkeeping';
+import { Approvals } from './pages/Approvals';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -26,7 +27,8 @@ export default class App extends Component {
             <AuthorizeRoute path='/Skabeloner' component={Templates} />
             <AuthorizeRoute path='/fetch-data' component={FetchData} />
             <Route path='/Bookkeeping' component={BookKeeping} />
-            
+            <Route path='/Godkendelser' component={Approvals} />
+
             <Route path='/Admin' component={AdminPage} />
             
 

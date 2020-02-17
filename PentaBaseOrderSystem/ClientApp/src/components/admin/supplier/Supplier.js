@@ -1,12 +1,12 @@
 ﻿import React, { Component, Fragment } from 'react';
-import ProjectList from './ProjectList';
-import CreateProject from './CreateProject'
+import SupplierList from './SupplierList';
+import CreateSupplier from './CreateSupplier'
 import { AdminConsumer } from '../../../context/AdminProvider';
 AdminConsumer
 
 
 
-function Project() {
+function Supplier() {
 
     
 
@@ -17,7 +17,7 @@ function Project() {
 
 
                 {function (value) {
-                    const { projectList } = value
+                    const { SupplierList } = value
                     return (
                         <div classname='Container'>
                             <h1>Projeker</h1>
@@ -31,11 +31,11 @@ function Project() {
                             <Tabs defaultActiveKey="OverView">
                                 <Tab eventKey="OverView" title="Overblik">
                                     <h3>Overblik</h3>
-                                    <ProjectList projectList={projectList} />
+                                    <SupplierList SupplierList={SuplierList} />
                                 </Tab>
 
                                 <Tab eventKey="Opret" title="Opret">
-                                    <CreateProject />
+                                    <CreateSupplier />
                                 </Tab>
                             </Tabs>
                         </div>
@@ -47,4 +47,4 @@ function Project() {
 
     );
 }
-export default Project;
+export default Supplier;

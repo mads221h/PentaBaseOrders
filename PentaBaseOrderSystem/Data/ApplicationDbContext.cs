@@ -31,11 +31,6 @@ namespace PentaBaseOrderSystem.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Shipment>()
-                .HasOne(p => p.Ware)
-                .WithMany(b => b.Shipments)
-                .HasForeignKey(p => p.WareId);
-
-            modelBuilder.Entity<Shipment>()
                 .HasOne(p => p.Order)
                 .WithMany(b => b.Shipments)
                 .HasForeignKey(p => p.OrderId);
@@ -44,6 +39,21 @@ namespace PentaBaseOrderSystem.Data
                 .HasOne(p => p.Supplier)
                 .WithMany(b => b.Wares)
                 .HasForeignKey(p => p.SupplierId);
+
+             modelBuilder.Entity<Order>()
+                .HasOne(p => p.Supplier)
+                .WithMany(b => b.Orders)
+                .HasForeignKey(p => p.SupplierId);
+
+             modelBuilder.Entity<Order>()
+                .HasOne(p => p.Project)
+                .WithMany(b => b.Orders)
+                .HasForeignKey(p => p.ProjectId);
+
+            modelBuilder.Entity<Order>()
+               .HasOne(p => p.Department)
+               .WithMany(b => b.Orders)
+               .HasForeignKey(p => p.DepartmentId);
         }
     }
 }

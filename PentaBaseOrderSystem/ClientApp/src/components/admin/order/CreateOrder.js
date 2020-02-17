@@ -84,16 +84,11 @@ function CreateOrder(props) {
                 <label>
                     Leverandør:
                         </label>
-                    <select class="form-control" name="supplier" value={props.orderState.supplier} required onChange={props.handleOrderChange}>
-                    {
-                            props.orderState.supplier > 0 ?
-                                (<option value={props.orderState.supplier}>{props.orderState.supplier}</option>)
-                            :
-                            (<option>Vælg Leverandør</option>)
-                    }
+                    <select class="form-control" name="supplierId" value={props.orderState.supplierId} required onChange={props.handleOrderChange}>
+                   <option>Vælg Leverandør</option>
                     
-                    {props.supplierList.map(supplier =>
-                        <option key={supplier.id} value={supplier.name} >{supplier.name}</option>
+                        {props.supplierList.map(supplier =>
+                            <option key={supplier.supplierId} value={supplier.supplierId} >{supplier.name}</option>
                     )}
                 </select>
             </div>
@@ -101,10 +96,10 @@ function CreateOrder(props) {
                 <label>
                     Projekt:
                 </label>
-                    <select class="form-control" name="project" value={props.orderState.project} onChange={props.handleOrderChange} required>
+                    <select class="form-control" name="projectId" value={props.orderState.project.projectId} onChange={props.handleOrderChange} required>
                     <option>Vælg Projekt</option>
-                    {props.projectList.map(project =>
-                        <option key={project.id} value={project.title} >{project.title}</option>
+                        {props.projectList.map(project =>
+                            <option key={project.projectId} value={project.projectId} >{project.title}</option>
 
                     )}
                 </select>
@@ -113,10 +108,10 @@ function CreateOrder(props) {
                 <label>
                     Afdeling:
                 </label>
-                    <select class="form-control" name="department" value={props.orderState.department} onChange={props.handleOrderChange} required>
+                    <select class="form-control" name="departmentId" value={props.orderState.department.projectId} onChange={props.handleOrderChange} required>
                     <option>Vælg Afdeling</option>
-                    {props.departmentList.map(department =>
-                        <option key={department.id} value={department.title} >{department.title}</option>
+                        {props.departmentList.map(department =>
+                            <option key={department.departmentId} value={department.departmentId} >{department.title}</option>
                     )}
                 </select>
             </div>

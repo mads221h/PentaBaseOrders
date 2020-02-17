@@ -227,26 +227,31 @@ namespace PentaBaseOrderDemo.Controllers
         [HttpPost("[action]")]
         public Order CreateOrder([FromBody] Order data)
         {
+            
             int totalPrice = 0;
             bool _priceBool = false;
             foreach (Shipment I in data.Shipments)
             {
                 
-                var ware = _db.Ware.FirstOrDefault(x => x.WareId == I.WareId);
-                totalPrice = totalPrice + (ware.Price * I.Count);
+                //var ware = _db.Ware.FirstOrDefault(x => x.WareId == I.WareId);
+                totalPrice = totalPrice + (I.Price * I.Count);
+
+                
             }
             if (totalPrice <= 10000)
             {
                 _priceBool = true;
             };
-            var supplier = _db.Supplier.FirstOrDefault(x => x.Id == data.Shipments[1].ShipmentId);
+            
+            //var supplier = _db.Supplier.FirstOrDefault(x => x.Id == data.Shipments[0]);
             var order = new Order
             {
                 Title = data.Title,
                 Date = DateTime.Now.ToString("yyyy-MM-dd"),
-                Supplier = supplier.Name,
-                Project = data.Project,
-                Department = data.Department,
+                SupplierId = data.Supplier.SupplierId,
+                SupplierName = data.Supplier.Name,
+                ProjectId = data.Project.ProjectId,
+                DepartmentId = data.Department.DepartmentId,
                 Description = "Description rkgmrk r,gpw viuje eobin wueji, ok,wem ue wej iemgke ,lrve efke",
                 Price = totalPrice,
                 
@@ -295,7 +300,7 @@ namespace PentaBaseOrderDemo.Controllers
 
             }
             else{
-                _db.Remove(_db.Project.Single(x => x.Id == data.Id));
+                _db.Remove(_db.Project.Single(x => x.ProjectId == data.ProjectId));
                 _db.SaveChanges();
             }
             

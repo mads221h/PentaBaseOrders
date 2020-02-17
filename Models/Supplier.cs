@@ -8,7 +8,7 @@ namespace Models
     public class Supplier
     {
         [Key]
-        public int Id { get; set; }
+        public int SupplierId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -22,6 +22,7 @@ namespace Models
         [Required]
         public bool Approval { get; set; }
         public List<Ware> Wares { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }
 

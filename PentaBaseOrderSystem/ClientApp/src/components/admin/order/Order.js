@@ -3,7 +3,7 @@ import CreateOrder from './CreateOrder'
 import ShipmentList from './ShipmentList';
 import WareList from './WareList';
 import WareFilter from '../ware/WareFilter';
-import OrderDetails from './OrderDetails';
+import OrderConfirm from './OrderConfirm';
 import { AdminConsumer } from '../../../context/AdminProvider';
 import { Tabs, Tab } from 'react-bootstrap';
 AdminConsumer
@@ -90,7 +90,7 @@ export class Order extends Component {
                                             
                                         />
                                     </Tab>
-                                    <Tab eventKey="AddWares" title="1: Tilføj vare">
+                                    <Tab eventKey="AddWares" title="2: Tilføj vare">
                                         <WareFilter updateFilter={updateFilter} supplier={supplierList} />
 
                                         <WareList wareList={filteredWares}
@@ -99,7 +99,7 @@ export class Order extends Component {
                                         <ShipmentList shipmentList={orderState} removeShipment={removeOneShipment} />
                                     </Tab>
                                     <Tab eventKey="Confirm" title="3: Godkend og opret">
-                                        <OrderDetails orderState={orderState} removeShipment={removeOneShipment}/>
+                                        <OrderConfirm orderState={orderState} removeShipment={removeOneShipment}/>
 
                                         <button class="form-control" onClick={handleCreate} > Opret Order</button>
                                     </Tab>

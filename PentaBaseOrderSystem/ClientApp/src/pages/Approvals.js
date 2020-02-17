@@ -1,16 +1,16 @@
 ﻿import React, { Component } from 'react';
 import Filter from '../components/filter';
-import Listings from "../components/bookkeeping/Booklistings";
+import Listings from "../components/approvals/Approvallistings";
 import {
     OrderListProvider,
     OrderListConsumer
 } from '../context/OrderListProvider'
 
-export class BookKeeping extends Component {
-    displayName = BookKeeping.name
+export class Approvals extends Component {
+    displayName = Approvals.name
     constructor(props) {
         super(props);
-        this.state = { };
+        this.state = {};
 
     }
 
@@ -21,7 +21,7 @@ export class BookKeeping extends Component {
 
         return (
             <div>
-                <h1>Bookkeeping</h1>
+                <h1>Godkendeler</h1>
                 <OrderListProvider>
                     <OrderListConsumer>
 

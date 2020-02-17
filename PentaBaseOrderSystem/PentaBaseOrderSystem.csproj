@@ -31,6 +31,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20200214095220_properRelationsForOrder.cs" />
+    <Compile Remove="Data\Migrations\20200214095220_properRelationsForOrder.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200214101615_properRelationsForOrder.cs" />
+    <Compile Remove="Data\Migrations\20200214101615_properRelationsForOrder.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200214102228_properRelationsForOrder.cs" />
+    <Compile Remove="Data\Migrations\20200214102228_properRelationsForOrder.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200214112525_Relationchanges.cs" />
+    <Compile Remove="Data\Migrations\20200214112525_Relationchanges.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 

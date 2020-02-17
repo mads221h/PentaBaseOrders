@@ -32,6 +32,24 @@ export class OrderListProvider extends React.Component {
             filter
         })
     }
+    handleApproval = listing => {
+        var json = JSON.stringify(listing);
+        fetch('api/SampleData/Approval', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: json,
+        })
+    }
+    handlePayment = listing => {
+
+        setPaymentState({ payment: true })
+        var json = JSON.stringify(listing);
+        fetch('api/SampleData/Payment', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: json,
+        });
+    }
     static applyFilter(listings, filter) {
         const { priceFrom, supplier, sortOrder, dateFrom, dateTo, approval, payment } = filter
 

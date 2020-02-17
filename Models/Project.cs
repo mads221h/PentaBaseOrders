@@ -8,12 +8,14 @@ namespace Models
     public class Project
     {
         [Key]
-        public int Id { get; set; }
+        public int ProjectId { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
         public string Owner { get; set; }
         [Required]
         public string Location { get; set; }
+
+        public List<Order> Orders { get; set; }
     }
 }
