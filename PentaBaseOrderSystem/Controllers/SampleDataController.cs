@@ -293,17 +293,31 @@ namespace PentaBaseOrderDemo.Controllers
         }
 
         [HttpDelete("[action]")]
-        public void Delete([FromBody] Project data)
+        public void DeleteProject([FromBody] Project data)
         {
             if (data is null)
             {
-
+                
             }
             else{
                 _db.Remove(_db.Project.Single(x => x.ProjectId == data.ProjectId));
                 _db.SaveChanges();
             }
             
+        }
+        [HttpDelete("[action]")]
+        public void DeleteSupplier([FromBody] Supplier data)
+        {
+            if (data is null)
+            {
+
+            }
+            else
+            {
+                _db.Remove(_db.Supplier.Single(x => x.SupplierId == data.SupplierId));
+                _db.SaveChanges();
+            }
+
         }
         public class PentaShoppingorder
         {

@@ -2,7 +2,7 @@
 
 
 
-function SupplierListItem(props) {
+function DepartmentListItem(props) {
 
     const [itemState, setItemState] = useState( props.item );
 
@@ -11,7 +11,7 @@ function SupplierListItem(props) {
 
 
         var json = JSON.stringify(item);
-        fetch('api/SampleData/DeleteSupplier', {
+        fetch('api/SampleData/Delete', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: json,
@@ -23,7 +23,7 @@ function SupplierListItem(props) {
             {
                 itemState ?
                     (
-                        <tr key={itemState.SupplierId}>
+                        <tr key={itemState.DepartmentId}>
                             <td>{itemState.name}</td>
                             <td><button class="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
                         </tr>
@@ -36,4 +36,4 @@ function SupplierListItem(props) {
     )
 
 }
-export default SupplierListItem
+export default DepartmentListItem

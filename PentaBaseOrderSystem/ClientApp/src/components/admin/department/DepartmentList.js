@@ -1,18 +1,18 @@
 ﻿import React, { useState, useEffect } from "react";
-import SupplierListItem from "./SupplierListItem";
+import DepartmentListItem from "./DepartmentListItem";
 
-function SupplierList(props) {
+function DepartmentList(props) {
     return (
         <table className='table'>
             
             <thead>
                 <tr>
-                    <th>Supplier</th>
+                    <th>Department</th>
                 </tr>
             </thead>
             <tbody>
-                {props.supplierList.map(item =>
-                    <SupplierListItem item={item} />
+                {props.departmentList.map(item =>
+                    <DepartmentListItem item={item} />
                 //<tr key={item.id}>
                 //    <td>{item.title}</td>
                 //    <td><button class="form-control" onClick={(e) => handleDelete(item)}>Delete</button></td>
@@ -22,4 +22,4 @@ function SupplierList(props) {
         </table>
         )
 }
-export default SupplierList
+export default DepartmentList

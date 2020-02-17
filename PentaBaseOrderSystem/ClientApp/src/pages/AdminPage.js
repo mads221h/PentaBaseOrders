@@ -4,9 +4,9 @@ import { AdminLayout } from '../components/AdminLayout';
 import { Order }  from '../components/admin/order/Order';
 import Project from '../components/admin/project/Project';
 import Ware from '../components/admin/ware/Ware';
-import CreateSupplier from '../components/admin/CreateSupplier';
+import Supplier from '../components/admin/supplier/Supplier';
 import CreateTemplate from '../components/admin/CreateTemplate';
-import CreateDepartment from '../components/admin/CreateDepartment';
+import Department from '../components/admin/department/Department';
 import { AdminProvider } from '../context/AdminProvider';
 import OrderDetails from '../components/admin/order/OrderDetails';
 
@@ -23,9 +23,9 @@ export class AdminPage extends Component {
                     <Route path='/Admin/OrdreDetails' component={OrderDetails} />
                     <Route path='/Admin/Project' component={Project} />
                     <Route path='/Admin/vare' component={Ware} />
-                    <Route path='/Admin/Leverandoer' component={CreateSupplier} />
+                    <Route path='/Admin/Leverandoer' component={Supplier} />
                     <Route path='/Admin/Skabelon' component={CreateTemplate} />
-                    <Route path='/Admin/Afdeling' component={CreateDepartment} />
+                    <Route path='/Admin/Afdeling' component={Department} />
                 </AdminLayout>
             </AdminProvider>
         );

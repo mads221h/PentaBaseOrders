@@ -1,45 +1,31 @@
 ﻿import React, { Component, Fragment } from 'react';
-import CreateSupplier from './CreateSupplier'
-import SupplierList from './SupplierList'
+import DepartmentList from './DepartmentList';
+import CreateDepartment from './CreateDepartment'
 import { Tabs, Tab } from 'react-bootstrap';
 import { AdminConsumer } from '../../../context/AdminProvider';
 AdminConsumer
-
-
-
-function Supplier() {
-
-    
-
+function Department() {
     return (
-        
         <AdminConsumer>
-
-
-
                 {function (value) {
-                    const { supplierList } = value
+                const { departmentList } = value
                     return (
                         <div classname='Container'>
-                            <h1>Supplier</h1>
-                            <Tabs defaultActiveKey="OverView1">
-                                <Tab eventKey="OverView1" title="Overblik1">
+                            <h1>Department</h1>
+                            <Tabs defaultActiveKey="OverView">
+                                <Tab eventKey="OverView" title="Overblik">
                                     <h3>Overblik</h3>
-                                    <SupplierList supplierList={supplierList} />
+                                    <DepartmentList departmentList={departmentList} />
                                 </Tab>
-
                                 <Tab eventKey="Opret" title="Opret">
-                                    <h3>Create new Supplier</h3>
-                                    <CreateSupplier />
+                                    <h3>Create new Department</h3>
+                                    <CreateDepartment />
                                 </Tab>
                             </Tabs>
                         </div>
                     )
                 }}
         </AdminConsumer>
-
-            
-
     );
 }
-export default Supplier;
+export default Department;

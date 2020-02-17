@@ -1,8 +1,4 @@
 ﻿import React, { Component } from 'react';
-import CreateOrder from './order/CreateOrder';
-
-
-
 function CreateSupplier() {
 
     function handleSubmit(event) {
