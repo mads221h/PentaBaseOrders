@@ -33,6 +33,7 @@ function ProjectList(props) {
             <thead>
                 <tr>
                     <th>Projekter</th>
+                    <th>Projekt Ejer</th>
                 </tr>
             </thead>
             <tbody>

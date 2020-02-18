@@ -13,7 +13,7 @@ function Project() {
             {function (value) {
                 const { filteredWares, supplierList, updateFilter } = value
                 return (
-                    <div classname='Container'>
+                    <div className='Container'>
                         <h1>Varer</h1>
                         <Tabs defaultActiveKey="OverView">
                             <Tab eventKey="OverView" title="Overblik">

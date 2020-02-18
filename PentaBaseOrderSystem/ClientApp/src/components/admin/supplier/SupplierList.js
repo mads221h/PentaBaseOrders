@@ -7,7 +7,9 @@ function SupplierList(props) {
             
             <thead>
                 <tr>
-                    <th>Supplier</th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Last Bought From</th>
                 </tr>
             </thead>
             <tbody>

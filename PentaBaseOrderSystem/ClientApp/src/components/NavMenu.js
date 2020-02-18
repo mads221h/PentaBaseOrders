@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Dropdown } from 'bootstrap';
 import { LoginMenu } from './api-authorization/LoginMenu';
 import './NavMenu.css';
+import authService from './api-authorization/AuthorizeService';
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -16,9 +17,26 @@ export class NavMenu extends Component {
 
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
-      collapsed: true
+        collapsed: true,
+        isAuthenticated: false,
+        role: null
     };
-  }
+    }
+    componentDidMount() {
+        this._subscription = authService.subscribe(() => this.populateState());
+        this.populateState();
+    }
+
+    componentWillUnmount() {
+        authService.unsubscribe(this._subscription);
+    }
+    async populateState() {
+        const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+        this.setState({
+            isAuthenticated,
+            role: user && user.role
+        });
+    }
 
   toggleNavbar () {
     this.setState({
@@ -26,7 +44,8 @@ export class NavMenu extends Component {
     });
   }
 
-  render () {
+    render() {
+        const role = this.state.role;
     return (
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
@@ -41,24 +60,29 @@ export class NavMenu extends Component {
                             <NavItem>
                                 <NavLink tag={Link} className="text-dark" to="/Oversigt">Oversigt</NavLink>
                             </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/Bookkeeping">Bookkeeping</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/Godkendelser">Godkendelser</NavLink>
-                            </NavItem>
+                            
                             <NavItem>
                                 <NavLink tag={Link} className="text-dark" to="/Skabeloner">Skabeloner</NavLink>
                             </NavItem>
+                            {
+                                role && role.includes("admin") ?
+                                    <span>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-dark" to="/Bookkeeping">Bookkeeping</NavLink>
+                            </NavItem>
+                            
+                            
+                            
+                                        <NavItem>
+                                            <NavLink tag={Link} className="text-dark" to="/Godkendelser">Godkendelser</NavLink>
+                                        </NavItem>
+                                    
                             <UncontrolledDropdown>
                                 <DropdownToggle nav caret>
                                         Admin
                                   </DropdownToggle>
 
-                                <DropdownMenu nav inNavbar>
+                                <DropdownMenu>
                                     <DropdownItem>
                                             <NavLink tag={Link} className="text-dark" to="/Admin/Ordre">Ordre</NavLink>
                                     </DropdownItem>
@@ -78,10 +102,10 @@ export class NavMenu extends Component {
                                         <NavLink tag={Link} className="text-dark" to="/Admin/Project">Projekt</NavLink>
                                     </DropdownItem>
                                 </DropdownMenu>
-                            </UncontrolledDropdown>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
-                </NavItem>
+                                        </UncontrolledDropdown>
+                                    </span>
+                                    : null}
+                
                 <LoginMenu>
                 </LoginMenu>
               </ul>

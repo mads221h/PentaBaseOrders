@@ -11,6 +11,7 @@ using PentaBaseOrderSystem.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using IdentityServer4.Services;
 
 namespace PentaBaseOrderSystem
 {
@@ -31,6 +32,8 @@ namespace PentaBaseOrderSystem
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
@@ -39,6 +42,7 @@ namespace PentaBaseOrderSystem
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
+            services.AddTransient<IProfileService, ProfileService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
 

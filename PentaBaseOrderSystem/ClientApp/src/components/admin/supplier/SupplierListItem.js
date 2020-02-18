@@ -25,6 +25,8 @@ function SupplierListItem(props) {
                     (
                         <tr key={itemState.SupplierId}>
                             <td>{itemState.name}</td>
+                            <td>{itemState.location}</td>
+                            <td>{itemState.lastBoughtFrom}</td>
                             <td><button class="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
                         </tr>
                     )

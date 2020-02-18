@@ -7,7 +7,8 @@ function DepartmentList(props) {
             
             <thead>
                 <tr>
-                    <th>Department</th>
+                    <th>Departments</th>
+                    <th>Department Leader</th>
                 </tr>
             </thead>
             <tbody>

@@ -25,6 +25,7 @@ function ProjectListItem(props) {
                     (
                         <tr key={itemState.projectId}>
                             <td>{itemState.title}</td>
+                            <td>{itemState.owner}</td>
                             <td><button class="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
                         </tr>
                     )

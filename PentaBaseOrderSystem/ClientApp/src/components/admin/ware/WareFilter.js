@@ -24,7 +24,7 @@ class WareFilter extends React.Component {
                             value={this.state.supplier}
                             onChange={event => this.setState({ supplier: event.target.value })}>
                             {this.props.supplier.map(pc => (
-                                <option key={pc.id} value={pc.id}>
+                                <option key={pc.supplierId} value={pc.id}>
                                     {pc.name}
                                 </option>
                             ))}

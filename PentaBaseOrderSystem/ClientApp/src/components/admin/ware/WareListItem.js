@@ -22,11 +22,11 @@ function WareListItem(props) {
             {
                 itemState ?
                     (
-                        <tr key={itemState.id}>
+                        <tr key={itemState.wareId}>
                             <td>{itemState.name}</td>
                             <td>{itemState.price}</td>
                             
-                            <td><button class="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
+                            <td><button className="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
                         </tr>
                     )
                     :

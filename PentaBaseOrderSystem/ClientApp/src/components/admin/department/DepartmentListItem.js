@@ -25,6 +25,7 @@ function DepartmentListItem(props) {
                     (
                         <tr key={itemState.DepartmentId}>
                             <td>{itemState.name}</td>
+                            <td>{itemState.leader}</td>
                             <td><button class="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
                         </tr>
                     )

@@ -8,6 +8,7 @@ import { Templates } from './pages/Templates';
 import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
+import authService from './components/api-authorization/AuthorizeService';
 
 import './custom.css'
 import { AdminPage } from './pages/AdminPage';
@@ -17,19 +18,49 @@ import { Approvals } from './pages/Approvals';
 
 export default class App extends Component {
   static displayName = App.name;
+    constructor(props) {
+        super(props);
+        this.state = {
+            isAuthenticated: false,
+            role: null
+        };
+    }
+    componentDidMount() {
+        this._subscription = authService.subscribe(() => this.populateState());
+        this.populateState();
+    }
 
-  render () {
+    componentWillUnmount() {
+        authService.unsubscribe(this._subscription);
+    }
+    async populateState() {
+        const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+        this.setState({
+            isAuthenticated,
+            role: user && user.role
+        });
+
+    }
+    render() {
+        const role = this.state.role;
     return (
-      <Layout>
+        <Layout>
+            {
+                role && role.includes("admin") ?
+                    <span>
+                        <AuthorizeRoute path='/Bookkeeping' component={BookKeeping} />
+                        <AuthorizeRoute path='/Godkendelser' component={Approvals} />
+
+                        <AuthorizeRoute path='/Admin' component={AdminPage} />
+                    </span>
+                    : null
+            }
             <Route exact path='/' component={Home} />
             <Route path='/Oversigt' component={Overview} />
             <AuthorizeRoute path='/counter' component={Counter} />
             <AuthorizeRoute path='/Skabeloner' component={Templates} />
             <AuthorizeRoute path='/fetch-data' component={FetchData} />
-            <Route path='/Bookkeeping' component={BookKeeping} />
-            <Route path='/Godkendelser' component={Approvals} />
-
-            <Route path='/Admin' component={AdminPage} />
+            
             
 
         <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />

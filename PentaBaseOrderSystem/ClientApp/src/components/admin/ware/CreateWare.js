@@ -27,35 +27,35 @@ function CreateWare(props) {
     }
     return (
             <form onSubmit={handleSubmit}>
-                <div classname="form-group">
+                <div className="form-group">
                     <label>
                         Vare navn:
                 </label>
-                    <input type="text" name="Name" class="form-control" required />
+                    <input type="text" name="Name" className="form-control" required />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                     <label>
                         Leverandør:
                         </label>
-                    <select class="form-control" name="SupplierId" required>
+                    <select className="form-control" name="SupplierId" required>
                     {props.supplierList.map(supplier =>
                         <option key={supplier.supplierId} value={supplier.supplierId} >{supplier.name}</option>
                         )}
                     </select>
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                     <label>
                         Pris:
                         </label>
-                    <input type="text" name="Price" class="form-control" required />
+                    <input type="text" name="Price" className="form-control" required />
             </div>
-            <div classname="form-group">
+            <div className="form-group">
                 <label>
                     Vare info:
                 </label>
-                <input type="text" name="Info" class="form-control" required />
+                <input type="text" name="Info" className="form-control" required />
             </div>
-                <input type="submit" class="btn btn-primary" value="Submit" />
+                <input type="submit" className="btn btn-primary" value="Submit" />
             </form>
     );
 }

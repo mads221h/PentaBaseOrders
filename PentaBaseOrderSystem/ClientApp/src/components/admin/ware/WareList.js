@@ -15,9 +15,11 @@ function WareList(props) {
                 
                 
             </thead>
-            {props.wareList.map(item =>
-                <WareListItem item={item} />
-            )}
+            <tbody>
+                {props.wareList.map(item =>
+                    <WareListItem key={item.wareId} item={item} />
+                )}
+                </tbody>
         </table>
         )
 }
