@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using PentaBaseOrderSystem.Data;
 
 namespace PentaBaseOrderDemo.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class SampleDataController : ControllerBase
     {
@@ -63,6 +65,16 @@ namespace PentaBaseOrderDemo.Controllers
         {
 
             return _db.Project.ToList();
+        }
+        [HttpGet("[action]/{id}")]
+        public Order GetOrder(int id)
+        {
+            var shipments = _db.Shipment.Where(i => i.OrderId == id).ToList();
+            var order = _db.Order.FirstOrDefault(i => i.OrderId == id);
+            order.Shipments = shipments;
+
+
+            return order;
         }
         [HttpGet("[action]")]
         public IEnumerable<Ware> GetWareList()
@@ -243,15 +255,15 @@ namespace PentaBaseOrderDemo.Controllers
                 _priceBool = true;
             };
             
-            //var supplier = _db.Supplier.FirstOrDefault(x => x.Id == data.Shipments[0]);
+            var supplier = _db.Supplier.FirstOrDefault(x => x.SupplierId == data.Supplier.SupplierId);
             var order = new Order
             {
                 Title = data.Title,
                 Date = DateTime.Now.ToString("yyyy-MM-dd"),
                 SupplierId = data.Supplier.SupplierId,
                 SupplierName = data.Supplier.Name,
-                ProjectId = data.Project.ProjectId,
-                DepartmentId = data.Department.DepartmentId,
+                Project = data.Project,
+                Department = data.Department,
                 Description = "Description rkgmrk r,gpw viuje eobin wueji, ok,wem ue wej iemgke ,lrve efke",
                 Price = totalPrice,
                 
@@ -259,6 +271,10 @@ namespace PentaBaseOrderDemo.Controllers
                 Payment = false,
                 Shipments = data.Shipments,
             };
+            
+            supplier.LastBoughtFrom = DateTime.Now.ToString("yyyy-MM-dd");
+
+            _db.Supplier.Update(supplier);
             _db.Order.Add(order);
             _db.SaveChanges();
 
@@ -291,6 +307,42 @@ namespace PentaBaseOrderDemo.Controllers
             //var response = await _client.PostAsJsonAsync(BaseEndPoint, data);
             //response.EnsureSuccessStatusCode();
         }
+        [HttpPut("[action]")]
+        public void OrderUpdate([FromBody] Order data)
+        {
+            var order = _db.Order.FirstOrDefault(x => x.OrderId == data.OrderId);
+            order = data;
+            _db.Order.Update(order);
+            _db.SaveChanges();
+
+        }
+        [HttpPut("[action]")]
+        public void ProjectUpdate([FromBody] Project data)
+        {
+            var project = _db.Project.FirstOrDefault(x => x.ProjectId == data.ProjectId);
+            project = data;
+            _db.Project.Update(project);
+            _db.SaveChanges();
+
+        }
+        [HttpPut("[action]")]
+        public void DepartmentUpdate([FromBody] Department data)
+        {
+            var department = _db.Department.FirstOrDefault(x => x.DepartmentId == data.DepartmentId);
+            department = data;
+            _db.Department.Update(department);
+            _db.SaveChanges();
+
+        }
+        [HttpPut("[action]")]
+        public void WareUpdate([FromBody] Ware data)
+        {
+            var ware = _db.Ware.FirstOrDefault(x => x.WareId == data.WareId);
+            ware = data;
+            _db.Ware.Update(ware);
+            _db.SaveChanges();
+
+        }
 
         [HttpDelete("[action]")]
         public void DeleteProject([FromBody] Project data)
@@ -306,6 +358,20 @@ namespace PentaBaseOrderDemo.Controllers
             
         }
         [HttpDelete("[action]")]
+        public void DeleteOrder([FromBody] Order data)
+        {
+            if (data is null)
+            {
+
+            }
+            else
+            {
+                _db.Remove(_db.Order.Single(x => x.OrderId == data.OrderId));
+                _db.SaveChanges();
+            }
+
+        }
+        [HttpDelete("[action]")]
         public void DeleteSupplier([FromBody] Supplier data)
         {
             if (data is null)
@@ -315,6 +381,20 @@ namespace PentaBaseOrderDemo.Controllers
             else
             {
                 _db.Remove(_db.Supplier.Single(x => x.SupplierId == data.SupplierId));
+                _db.SaveChanges();
+            }
+
+        }
+        [HttpDelete("[action]")]
+        public void DeleteWare([FromBody] Ware data)
+        {
+            if (data is null)
+            {
+
+            }
+            else
+            {
+                _db.Remove(_db.Ware.Single(x => x.WareId == data.WareId));
                 _db.SaveChanges();
             }
 

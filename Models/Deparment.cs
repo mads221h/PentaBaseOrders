@@ -15,7 +15,6 @@ namespace Models
         public string Leader { get; set; }
         [Required]
         public string Location { get; set; }
-        public List<Order> Orders { get; set; }
     }
 }
 

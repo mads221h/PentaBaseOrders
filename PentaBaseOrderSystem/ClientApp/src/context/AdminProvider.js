@@ -35,31 +35,33 @@ export class AdminProvider extends React.Component {
     state = DefaultState
 
     componentDidMount() {
-        this.populateSupplier();
-        this.populateDepartment();
-        this.populateProject();
-        this.populateWares();
+        this.populateAll();
+    }
+    async populateAll() {
+        const token = await authService.getAccessToken();
+
+        this.populateSupplier(token);
+        this.populateDepartment(token);
+        this.populateProject(token);
+        this.populateWares(token);
         //this.populateShipment();
     }
-
-    async populateProject() {
-        const token = await authService.getAccessToken();
+    async populateProject(token) {
         const response = await fetch('api/SampleData/GetProjectList', {
             headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
         });
         const data = await response.json();
         this.setState({ projectList: data});
     }
-    async populateShipment() {
-        const token = await authService.getAccessToken();
+    async populateShipment(token) {
+        
         const response = await fetch('api/SampleData/GetShipmentList', {
             headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
         });
         const data = await response.json();
         this.setState({ shipmentList: data });
     }
-    async populateWares() {
-        const token = await authService.getAccessToken();
+    async populateWares(token) {
         const response = await fetch('api/SampleData/GetWareList', {
             headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
         });
@@ -67,8 +69,7 @@ export class AdminProvider extends React.Component {
         this.setState({ wareList: data });
     }
 
-    async populateSupplier() {
-        const token = await authService.getAccessToken();
+    async populateSupplier(token) {
         const response = await fetch('api/SampleData/GetSupplierList', {
             headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
         });
@@ -76,8 +77,7 @@ export class AdminProvider extends React.Component {
         this.setState({ supplierList: data});
     }
 
-    async populateDepartment() {
-        const token = await authService.getAccessToken();
+    async populateDepartment(token) {
         const response = await fetch('api/SampleData/GetDepartmentList', {
             headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
         });
@@ -121,32 +121,32 @@ export class AdminProvider extends React.Component {
 
             }))
         }
-        else if (e.target.name == "projectId") {
-            const _project = this.state.projectList.find(item => item.projectId == value);
-            this.setState(prevState => ({
-                ...prevState,
-                orderState: {
-                    ...prevState.orderState,
-                    [e.target.name]: parseInt(value),
-                    project: _project,
-                    projectTitle: _project.title,
-                }
+        //else if (e.target.name == "projectId") {
+        //    const _project = this.state.projectList.find(item => item.projectId == value);
+        //    this.setState(prevState => ({
+        //        ...prevState,
+        //        orderState: {
+        //            ...prevState.orderState,
+        //            [e.target.name]: parseInt(value),
+        //            project: _project,
+        //            projectTitle: _project.title,
+        //        }
 
-            }))
-        }
-        else if (e.target.name == "departmentId") {
-            const _department = this.state.departmentList.find(item => item.departmentId == value);
-            this.setState(prevState => ({
-                ...prevState,
-                orderState: {
-                    ...prevState.orderState,
-                    [e.target.name]: parseInt(value),
-                    department: _department,
-                    departmentTitle: _department.title,
-                }
+        //    }))
+        //}
+        //else if (e.target.name == "departmentId") {
+        //    const _department = this.state.departmentList.find(item => item.departmentId == value);
+        //    this.setState(prevState => ({
+        //        ...prevState,
+        //        orderState: {
+        //            ...prevState.orderState,
+        //            [e.target.name]: parseInt(value),
+        //            department: _department,
+        //            departmentTitle: _department.title,
+        //        }
 
-            }))
-        }
+        //    }))
+        //}
     else {
             this.setState(prevState => ({
                 ...prevState,
@@ -158,12 +158,15 @@ export class AdminProvider extends React.Component {
             }))
     }
 }
-    handleCreate = () => {
+     handleCreate = async () => {
+        const token = await authService.getAccessToken();
         const object = this.state.orderState;
         var json = JSON.stringify(object);
         fetch('api/SampleData/CreateOrder', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers:
+                { 'Content-Type': 'application/json' ,
+                 'Authorization': `Bearer ${token}` },
             body: json,
         })
             //.then(response => response.json())
@@ -216,7 +219,10 @@ export class AdminProvider extends React.Component {
                 ...prevState,
                 orderState: {
                     ...prevState.orderState,
-                    shipments: prevState.orderState.shipments.concat({ count: 1, price: item.price, name: item.name }),
+                    shipments: prevState.orderState.shipments.concat({
+                        count: 1, price: item.price, name: item.name, wareId: item.wareId,
+                        info: item.info
+                    }),
                     //supplier: prevState.orderState.supplier: item.supplier
                 }
 

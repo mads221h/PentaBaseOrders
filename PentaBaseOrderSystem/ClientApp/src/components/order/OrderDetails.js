@@ -1,6 +1,7 @@
 ﻿import React, { useState,useEffect} from 'react';
 import ShipmentList from './ShipmentList';
 import { Fragment } from 'react';
+import authService from '../api-authorization/AuthorizeService'
 
 function OrderDetails(props) {
     const [orderState, setOrderState] = useState(props.location.state.orderState);
@@ -9,19 +10,32 @@ function OrderDetails(props) {
     useEffect(() => {
         setPaymentState(props.location.state.orderState.payment);
         setApprovalState(props.location.state.orderState.approval);
-        setOrderState(props.location.state.orderState);
+        getOrder(props.location.state.orderState.orderId)
     }, [props]);
+
+    async function getOrder(orderId){
+        const token = await authService.getAccessToken();
+        const response = await fetch(`api/SampleData/GetOrder/${orderId}`, {
+            headers: !token ? {} : { 'Authorization': `Bearer ${token}` },
+        });
+        const data = await response.json();
+        setOrderState(data);
+    }
     return (
+        
         <Fragment>
-            <h3>Din Order: {orderState.title}</h3>
-            <label>Id:</label>
-            <h4 class="form-control"> {orderState.orderId}</h4>
-            <label>Projekt:</label>
-            <h4 class="form-control"> {orderState.project}</h4>
-            <label>Afdeling:</label>
-            <h4 class="form-control"> {orderState.department}</h4>
-            <label>Leverandør: </label>
-            <h4 class="form-control">{orderState.supplier}</h4>
+            <form >
+                <label>Id:</label>
+                <h4 class="form-control"> {orderState.orderId}</h4>
+                <label>Title:</label>
+                <input name="Title" disabled value={orderState.title} class="form-control" />
+                <label>Projekt:</label>
+                <input name="Project" disabled value={orderState.project} class="form-control" />
+                <label>Afdeling:</label>
+                <input name="Department" disabled value={orderState.department} class="form-control" />
+                <label>Leverandør: </label>
+                <input name="Supplier" disabled value={orderState.supplierName} class="form-control" />
+            </form>
             <table class="table">
                 <thead>
                     <tr>
@@ -58,11 +72,13 @@ function OrderDetails(props) {
             <h3>Vare liste:</h3>
 
             {orderState.shipments != null
-                ? (<ShipmentList shipmentList={props.orderState} removeShipment={props.removeOneShipment} />)
+                ? (<ShipmentList shipmentList={orderState.shipments} />)
                 : (<p>Ingen vare</p>)
             }
 
-        </Fragment>
+                </Fragment>
+            
+                    
     )
 }
 export default OrderDetails;

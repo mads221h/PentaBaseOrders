@@ -10,7 +10,7 @@ function Department() {
                 {function (value) {
                 const { departmentList } = value
                     return (
-                        <div classname='Container'>
+                        <div className='Container'>
                             <h1>Department</h1>
                             <Tabs defaultActiveKey="OverView">
                                 <Tab eventKey="OverView" title="Overblik">

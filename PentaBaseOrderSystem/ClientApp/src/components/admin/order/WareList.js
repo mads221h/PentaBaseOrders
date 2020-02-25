@@ -2,7 +2,7 @@
 import WareListItem from "./WareListItem";
 
 function WareList(props) {
-
+    
     return (
 
         <table className='table'>

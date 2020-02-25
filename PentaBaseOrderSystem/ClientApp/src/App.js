@@ -15,6 +15,8 @@ import { AdminPage } from './pages/AdminPage';
 import { Overview } from './pages/Overview';
 import { BookKeeping } from './pages/Bookkeeping';
 import { Approvals } from './pages/Approvals';
+import OrderDetails from './components/order/OrderDetails';
+import { Order } from './components/admin/order/Order';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -46,17 +48,25 @@ export default class App extends Component {
     return (
         <Layout>
             {
-                role && role.includes("admin") ?
+                role && role.includes("bookkeeping") ?
                     <span>
                         <AuthorizeRoute path='/Bookkeeping' component={BookKeeping} />
+                    </span>
+                    : null
+            }
+            {
+                role && role.includes("admin") ?
+                    <span>
                         <AuthorizeRoute path='/Godkendelser' component={Approvals} />
-
                         <AuthorizeRoute path='/Admin' component={AdminPage} />
                     </span>
                     : null
             }
             <Route exact path='/' component={Home} />
-            <Route path='/Oversigt' component={Overview} />
+            <AuthorizeRoute path='/Ordre' component={Order} />
+            <AuthorizeRoute path='/OrderDetails' component={OrderDetails} />
+
+            <AuthorizeRoute path='/Oversigt' component={Overview} />
             <AuthorizeRoute path='/counter' component={Counter} />
             <AuthorizeRoute path='/Skabeloner' component={Templates} />
             <AuthorizeRoute path='/fetch-data' component={FetchData} />

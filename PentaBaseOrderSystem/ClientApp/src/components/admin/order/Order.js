@@ -4,7 +4,7 @@ import ShipmentList from './ShipmentList';
 import WareList from './WareList';
 import WareFilter from '../ware/WareFilter';
 import OrderConfirm from './OrderConfirm';
-import { AdminConsumer } from '../../../context/AdminProvider';
+import { AdminConsumer, AdminProvider } from '../../../context/AdminProvider';
 import { Tabs, Tab } from 'react-bootstrap';
 AdminConsumer
 
@@ -50,7 +50,7 @@ export class Order extends Component {
         //const _shipmentListState = this.state.shipmentListState;
             return (
                 <Fragment>
-                    
+                    <AdminProvider>    
                 <AdminConsumer>
                     
 
@@ -73,7 +73,7 @@ export class Order extends Component {
                             updateFilter, } = value
                         return (
                             <div classname='Container'>
-
+                               
                                 <h2 class="blue" >Opret Ordre</h2>
                                 <Tabs defaultActiveKey="Info">
                                     <Tab eventKey="Info" title="1: Indtast info">
@@ -108,7 +108,8 @@ export class Order extends Component {
                             </div>
                         )
                     }}
-                    </AdminConsumer>
+                        </AdminConsumer>
+                        </AdminProvider> 
                     </Fragment>
 
 

@@ -36,7 +36,7 @@ function ShipmentList(props) {
                 </tr>
             </thead>
             {props.shipmentList.shipments.map(item =>
-                <ShipmentListItem item={item} removeShipment={props.removeShipment}/>,
+                <ShipmentListItem item={item} />,
                 
             )}
             <h4> Total Pris: {price} </h4>

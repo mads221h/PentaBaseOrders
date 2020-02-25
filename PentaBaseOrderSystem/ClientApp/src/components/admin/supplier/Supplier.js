@@ -22,8 +22,8 @@ function Supplier() {
                     return (
                         <div classname='Container'>
                             <h1>Supplier</h1>
-                            <Tabs defaultActiveKey="OverView1">
-                                <Tab eventKey="OverView1" title="Overblik1">
+                            <Tabs defaultActiveKey="OverView">
+                                <Tab eventKey="OverView" title="Overblik1">
                                     <h3>Overblik</h3>
                                     <SupplierList supplierList={supplierList} />
                                 </Tab>

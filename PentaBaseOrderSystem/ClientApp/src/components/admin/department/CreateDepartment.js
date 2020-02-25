@@ -24,31 +24,31 @@ function CreateDepartment() {
     return (
         <form onSubmit={handleSubmit}>
             <label><h2>Opret din afdeling her</h2></label>
-            <div class="form-group">
+            <div className="form-group">
                 <label>
                     Afdelings title
                 </label>
 
-                <input type="text" name="Title" class="form-control" required />
+                <input type="text" name="Title" className="form-control" required />
             </div>
 
             <div class="form-group">
                 <label>
                     Afdelings leder
                         </label>
-                <input type="text" name="Leader" class="form-control" required />
+                <input type="text" name="Leader" className="form-control" required />
             </div>
-            <div class="form-group">
+            <div className="form-group">
                 <label>
                     Afdelings lokation
                         </label>
-                <input type="text" name="Location" class="form-control" required />
+                <input type="text" name="Location" className="form-control" required />
             </div>
 
 
 
 
-            <input type="submit" class="btn btn-primary" value="Submit" />
+            <input type="submit" className="btn btn-primary" value="Submit" />
         </form>
     );
 }

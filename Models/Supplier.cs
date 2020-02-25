@@ -21,6 +21,7 @@ namespace Models
         public string Description { get; set; }
         [Required]
         public bool Approval { get; set; }
+        //public string ApprovedBy { get; set; }
         public List<Ware> Wares { get; set; }
         public List<Order> Orders { get; set; }
     }

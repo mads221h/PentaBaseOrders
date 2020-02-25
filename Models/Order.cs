@@ -9,8 +9,8 @@ namespace Models
         [Key]
         public int OrderId { get; set; }
         public int SupplierId { get; set; }
-        public int ProjectId { get; set; }
-        public int DepartmentId { get; set; }
+        //public int ProjectId { get; set; }
+        //public int DepartmentId { get; set; }
         [Required]
         public string SupplierName { get; set; }
         [Required]
@@ -24,13 +24,14 @@ namespace Models
         public int Price { get; set; }
         [Required]
         public bool Approval { get; set; }
+        //public string ApprovedById { get; set; }
         [Required]
         public bool Payment { get; set; }
         [Required]
         public List<Shipment> Shipments { get; set; }
         [Required]
         public Supplier Supplier { get; set; }
-        public Project Project { get; set; }
-        public Department Department { get; set; }
+        public string Project { get; set; }
+        public string Department { get; set; }
     }
 }

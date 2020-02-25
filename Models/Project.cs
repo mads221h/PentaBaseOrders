@@ -16,6 +16,5 @@ namespace Models
         [Required]
         public string Location { get; set; }
 
-        public List<Order> Orders { get; set; }
     }
 }

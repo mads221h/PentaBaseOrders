@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import authService from '../components/api-authorization/AuthorizeService'
 
 
 const DefaultState = {
@@ -15,18 +16,37 @@ export class OrderListProvider extends React.Component {
     state = DefaultState
 
     componentDidMount() {
-        fetch('api/SampleData/GetOrderList')
-            .then(res => res.json())
-            .then(res => {
-                this.setState({ orderList: res })
-            })
-        fetch('api/SampleData/GetSupplierList')
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ supplierList: data })
+        //fetch('api/SampleData/GetOrderList')
+        //    .then(res => res.json())
+        //    .then(res => {
+        //        this.setState({ orderList: res })
+        //    })
+        //fetch('api/SampleData/GetSupplierList')
+        //    .then(response => response.json())
+        //    .then(data => {
+        //        this.setState({ supplierList: data })
                 
-            })
+        //    })
+        this.populateSupplier()
+        this.populateOrder()
     }
+    async populateSupplier() {
+        const token = await authService.getAccessToken();
+        const response = await fetch('api/SampleData/GetSupplierList', {
+            headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+        this.setState({ supplierList: data });
+    }
+    async populateOrder() {
+        const token = await authService.getAccessToken();
+        const response = await fetch('api/SampleData/GetOrderList', {
+            headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+        this.setState({ orderList: data });
+    }
+
     updateFilter = filter => {
         this.setState({
             filter

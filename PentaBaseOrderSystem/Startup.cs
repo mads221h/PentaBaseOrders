@@ -42,6 +42,12 @@ namespace PentaBaseOrderSystem
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdministratorRole",
+                     policy => policy.RequireRole("admin"));
+            });
+
             services.AddTransient<IProfileService, ProfileService>();
             services.AddControllersWithViews();
             services.AddRazorPages();

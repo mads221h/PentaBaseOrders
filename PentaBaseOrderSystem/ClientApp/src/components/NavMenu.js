@@ -8,6 +8,7 @@ import { Dropdown } from 'bootstrap';
 import { LoginMenu } from './api-authorization/LoginMenu';
 import './NavMenu.css';
 import authService from './api-authorization/AuthorizeService';
+import { Fragment } from 'react';
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -64,16 +65,14 @@ export class NavMenu extends Component {
                             <NavItem>
                                 <NavLink tag={Link} className="text-dark" to="/Skabeloner">Skabeloner</NavLink>
                             </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-dark" to="/Ordre">Opret Ordre</NavLink>
+                            </NavItem>
                             {
                                 role && role.includes("admin") ?
-                                    <span>
-                            <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/Bookkeeping">Bookkeeping</NavLink>
-                            </NavItem>
+                                    <Fragment>
                             
-                            
-                            
-                                        <NavItem>
+                                       <NavItem>
                                             <NavLink tag={Link} className="text-dark" to="/Godkendelser">Godkendelser</NavLink>
                                         </NavItem>
                                     
@@ -83,9 +82,6 @@ export class NavMenu extends Component {
                                   </DropdownToggle>
 
                                 <DropdownMenu>
-                                    <DropdownItem>
-                                            <NavLink tag={Link} className="text-dark" to="/Admin/Ordre">Ordre</NavLink>
-                                    </DropdownItem>
                                     <DropdownItem>
                                         <NavLink tag={Link} className="text-dark" to="/Admin/Afdeling">Afdeling</NavLink>
                                     </DropdownItem>
@@ -103,8 +99,15 @@ export class NavMenu extends Component {
                                     </DropdownItem>
                                 </DropdownMenu>
                                         </UncontrolledDropdown>
-                                    </span>
+                                    </Fragment>
                                     : null}
+                            {
+                                role && role.includes("bookkeeping") ?
+                                        <NavItem>
+                                            <NavLink tag={Link} className="text-dark" to="/Bookkeeping">Bookkeeping</NavLink>
+                                        </NavItem>
+                                    : null
+                            }
                 
                 <LoginMenu>
                 </LoginMenu>

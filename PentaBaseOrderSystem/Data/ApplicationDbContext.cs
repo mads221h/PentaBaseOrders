@@ -45,15 +45,15 @@ namespace PentaBaseOrderSystem.Data
                 .WithMany(b => b.Orders)
                 .HasForeignKey(p => p.SupplierId);
 
-             modelBuilder.Entity<Order>()
-                .HasOne(p => p.Project)
-                .WithMany(b => b.Orders)
-                .HasForeignKey(p => p.ProjectId);
+            // modelBuilder.Entity<Order>()
+            //    .HasOne(p => p.Project)
+            //    .WithMany(b => b.Orders)
+            //    .HasForeignKey(p => p.ProjectId);
 
-            modelBuilder.Entity<Order>()
-               .HasOne(p => p.Department)
-               .WithMany(b => b.Orders)
-               .HasForeignKey(p => p.DepartmentId);
+            //modelBuilder.Entity<Order>()
+            //   .HasOne(p => p.Department)
+            //   .WithMany(b => b.Orders)
+            //   .HasForeignKey(p => p.DepartmentId);
         }
     }
 }

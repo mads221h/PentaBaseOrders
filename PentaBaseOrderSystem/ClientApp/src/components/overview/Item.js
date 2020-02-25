@@ -32,7 +32,7 @@ function Item({ listing }) {
                     )
             }
             <td><Link to={{
-                pathname: '/Admin/OrdreDetails',
+                pathname: '/OrderDetails',
                 state: { orderState: listing }
             }}>Detaljer</Link></td>
         </tr>

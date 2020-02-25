@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
-import { Route} from 'react-router';
+import { Route } from 'react-router';
 import { AdminLayout } from '../components/AdminLayout';
-import { Order }  from '../components/admin/order/Order';
+import { Order } from '../components/admin/order/Order';
 import Project from '../components/admin/project/Project';
 import Ware from '../components/admin/ware/Ware';
 import Supplier from '../components/admin/supplier/Supplier';
@@ -35,33 +35,23 @@ export class AdminPage extends Component {
             isAuthenticated,
             role: user && user.role
         });
-    
+
     }
     render() {
         const role = this.state.role;
         return (
-            
-                <AdminLayout>
+            <OrderProvider>
 
 
-                    {
-                        role && role.includes("admin") ?
-                            <span>
+                 
+
+                <AuthorizeRoute path='/order/OrderDetails' component={OrderDetails} />
+                                
+
                     
-                            <AdminProvider>
-                                <AuthorizeRoute path='/Admin/Project' component={Project} />
-                                <AuthorizeRoute path='/Admin/vare' component={Ware} />
-                                <AuthorizeRoute path='/Admin/Leverandoer' component={Supplier} />
-                                <AuthorizeRoute path='/Admin/Skabelon' component={CreateTemplate} />
-                                <AuthorizeRoute path='/Admin/Afdeling' component={Department} />
-                            </AdminProvider>
-                            </span>
-                            : null
-    }
-        
-        
-                </AdminLayout>
-            
+
+
+            </OrderProvider>
         );
     }
 }
