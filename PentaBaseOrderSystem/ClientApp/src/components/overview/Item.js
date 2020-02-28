@@ -14,7 +14,7 @@ function Item({ listing }) {
 
             <td>{listing.title}</td>
             <td>{listing.price}</td>
-            <td>{listing.supplier}</td>
+            <td>{listing.supplierName}</td>
             {
                 approvalState.approval ?
                     (

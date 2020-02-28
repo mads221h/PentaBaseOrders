@@ -14,11 +14,9 @@ function Department() {
                             <h1>Department</h1>
                             <Tabs defaultActiveKey="OverView">
                                 <Tab eventKey="OverView" title="Overblik">
-                                    <h3>Overblik</h3>
                                     <DepartmentList departmentList={departmentList} />
                                 </Tab>
                                 <Tab eventKey="Opret" title="Opret">
-                                    <h3>Create new Department</h3>
                                     <CreateDepartment />
                                 </Tab>
                             </Tabs>

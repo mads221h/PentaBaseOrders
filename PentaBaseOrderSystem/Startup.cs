@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using IdentityServer4.Services;
+using IdentityModel;
 
 namespace PentaBaseOrderSystem
 {
@@ -27,6 +28,8 @@ namespace PentaBaseOrderSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalApiAuthentication();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -49,7 +52,16 @@ namespace PentaBaseOrderSystem
             });
 
             services.AddTransient<IProfileService, ProfileService>();
-            services.AddControllersWithViews();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.ClaimsIdentity.RoleClaimType = JwtClaimTypes.Role;
+            });
+
+            services.AddControllersWithViews()
+            .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
             services.AddRazorPages();
 
             // In production, the React files will be served from this directory

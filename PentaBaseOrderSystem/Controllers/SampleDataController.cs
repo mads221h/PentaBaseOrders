@@ -7,11 +7,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using PentaBaseOrderSystem.Data;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace PentaBaseOrderDemo.Controllers
 {
-    [Authorize]
+   
+    
     [Route("api/[controller]")]
+    //[Authorize(LocalApi.PolicyName)]
+    //[Authorize(Policy = "RequireAdministratorRole")]
     public class SampleDataController : ControllerBase
     {
         //private readonly HttpClient _client;
@@ -24,29 +28,6 @@ namespace PentaBaseOrderDemo.Controllers
             _db = db;
             //BaseEndPoint = new Uri("https://localhost:53838/api/values");
             //_client = new HttpClient();
-        }
-        
-        private static string[] Leverandoere = new[]
-        {
-            "Leverandør1", "Leverandør2", "Leverandør3", "Leverandør4", "Leverandør5", "Leverandør6", "Leverandør7", "Leverandør8", "Leverandør9", "Leverandør10"
-        };
-
-        
-        [HttpGet("[action]")]
-        public IEnumerable<PentaShoppingorder> PentaIndkoebsliste()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 50).Select(index => new PentaShoppingorder
-            {
-
-                OrderId = index.ToString(),
-                Date = DateTime.Now.AddDays(index).ToString("d"),
-                Varetitle = "Blandet vare",
-                Pris = rng.Next(500, 12000),
-                Leverandoer = Leverandoere[rng.Next(Leverandoere.Length)],
-                Godkendelse = false,
-
-            });
         }
         [HttpGet("[action]")]
         public IEnumerable<Order> GetOrderList()
@@ -96,27 +77,6 @@ namespace PentaBaseOrderDemo.Controllers
             return _db.Supplier.ToList();
         }
         [HttpGet("[action]/{id}")]
-        public PentaShoppingorder GetOrderTemplate(int id)
-        {
-
-            if (id > 0)
-            {
-                var template = new PentaShoppingorder
-                {
-
-                    OrderId = id.ToString(),
-                    Date = DateTime.Now.ToString("d"),
-                    Varetitle = "Template title",
-                    Pris = 5000,
-                    Leverandoer = Leverandoere[1],
-                    Godkendelse = true,
-                };
-                return template;
-            }
-            return new PentaShoppingorder();
-
-        }
-        [HttpGet("[action]/{id}")]
         public Template GetTemplate(int id)
         {
 
@@ -136,23 +96,6 @@ namespace PentaBaseOrderDemo.Controllers
             return new Template();
 
         }
-        //[HttpGet("[action]")]
-        //public IEnumerable<oldSupplier> SupplierList()
-        //{
-
-        //    var suppliers = new List<oldSupplier>();
-        //    var rng = new Random();
-        //    foreach (var _supplier in Leverandoere)
-        //    {
-        //        var supplier = new oldSupplier
-        //        {
-        //            Name = _supplier,
-        //            LastBoughtFrom = DateTime.Now.AddDays(rng.Next(10,100)).ToString()
-        //        };
-        //        suppliers.Add(supplier);
-        //    }
-        //        return suppliers;
-        //}
         [HttpPost("[action]")]
         public void CreateTemplate([FromBody] Template data)
         {
@@ -259,7 +202,8 @@ namespace PentaBaseOrderDemo.Controllers
             var order = new Order
             {
                 Title = data.Title,
-                Date = DateTime.Now.ToString("yyyy-MM-dd"),
+                //gotta implement utc 
+                Date = DateTime.Now.ToString(),
                 SupplierId = data.Supplier.SupplierId,
                 SupplierName = data.Supplier.Name,
                 Project = data.Project,
@@ -398,15 +342,6 @@ namespace PentaBaseOrderDemo.Controllers
                 _db.SaveChanges();
             }
 
-        }
-        public class PentaShoppingorder
-        {
-            public string OrderId { get; set; }
-            public string Date { get; set; }
-            public string Varetitle { get; set; }
-            public string Leverandoer { get; set; }
-            public int Pris { get; set; }
-            public bool Godkendelse { get; set; }
         }
         public class WeatherForecast
         {

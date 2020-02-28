@@ -23,13 +23,13 @@ function Supplier() {
                         <div classname='Container'>
                             <h1>Supplier</h1>
                             <Tabs defaultActiveKey="OverView">
-                                <Tab eventKey="OverView" title="Overblik1">
-                                    <h3>Overblik</h3>
+                                <Tab eventKey="OverView" title="Overblik">
+                                    
                                     <SupplierList supplierList={supplierList} />
                                 </Tab>
 
                                 <Tab eventKey="Opret" title="Opret">
-                                    <h3>Create new Supplier</h3>
+                                    
                                     <CreateSupplier />
                                 </Tab>
                             </Tabs>

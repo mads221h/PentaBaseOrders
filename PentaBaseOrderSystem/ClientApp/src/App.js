@@ -44,6 +44,7 @@ export default class App extends Component {
 
     }
     render() {
+        
         const role = this.state.role;
     return (
         <Layout>
@@ -67,6 +68,7 @@ export default class App extends Component {
             <AuthorizeRoute path='/OrderDetails' component={OrderDetails} />
 
             <AuthorizeRoute path='/Oversigt' component={Overview} />
+
             <AuthorizeRoute path='/counter' component={Counter} />
             <AuthorizeRoute path='/Skabeloner' component={Templates} />
             <AuthorizeRoute path='/fetch-data' component={FetchData} />

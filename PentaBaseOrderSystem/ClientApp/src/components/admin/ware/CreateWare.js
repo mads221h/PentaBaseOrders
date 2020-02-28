@@ -1,8 +1,9 @@
 ﻿import React, { Component, Fragment } from 'react';
+import authService from '../../api-authorization/AuthorizeService';
 
 function CreateWare(props) {
-
-    function handleSubmit(event) {
+    
+    async function handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.target);
         var object = {};
@@ -17,10 +18,13 @@ function CreateWare(props) {
             //    :
             //    object[key] = value;
         });
+        const token = await authService.getAccessToken();
         var json = JSON.stringify(object);
         fetch('api/SampleData/CreateWare', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` },
             body: json,
         });
         alert("Din vare er blevet oprettet");

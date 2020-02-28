@@ -62,6 +62,7 @@ export class Order extends Component {
                             filteredWares,
                             template,
                             orderState,
+                            RoleBaseSuppliers,
                             shipmentListState,
                             addShipment,
                             //shipmentList,
@@ -78,7 +79,7 @@ export class Order extends Component {
                                 <Tabs defaultActiveKey="Info">
                                     <Tab eventKey="Info" title="1: Indtast info">
                                         <CreateOrder
-                                            supplierList={supplierList}
+                                            supplierList={RoleBaseSuppliers}
                                             projectList={projectList}
                                             departmentList={departmentList}
                                             filteredWares={filteredWares}
@@ -91,10 +92,9 @@ export class Order extends Component {
                                         />
                                     </Tab>
                                     <Tab eventKey="AddWares" title="2: Tilføj vare">
-                                        <WareFilter updateFilter={updateFilter} supplier={supplierList} />
-
                                         <WareList wareList={filteredWares}
                                             addShipment={addShipment}
+                                            orderStateSupplier={orderState.supplier}
                                         />
                                         <ShipmentList shipmentList={orderState} removeShipment={removeOneShipment} />
                                     </Tab>

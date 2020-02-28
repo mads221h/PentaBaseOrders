@@ -7,7 +7,7 @@ function ShipmentList(props) {
     const reducer = function (tally, item) {
         return tally + (item.price * item.count)
     }
-    const price = props.shipmentList.shipments.reduce(reducer, 0)
+    const price = props.shipmentList.reduce(reducer, 0)
 
     const priceReducer = (state, action) => {
         switch (action.type) {
@@ -32,10 +32,9 @@ function ShipmentList(props) {
                     <th>Valgte vare:</th>
                     <th>Pris</th>
                     <th> Antal</th>
-                    <th>Action</th>
                 </tr>
             </thead>
-            {props.shipmentList.shipments.map(item =>
+            {props.shipmentList.map(item =>
                 <ShipmentListItem item={item} />,
                 
             )}

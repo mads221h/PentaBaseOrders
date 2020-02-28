@@ -4,6 +4,8 @@ import authService from '../components/api-authorization/AuthorizeService'
 
 const DefaultState = {
     departmentList: [],
+    isAuthenticated: false,
+    role: null,
     wareList: [],
     supplierList: [],
     projectList: [],
@@ -36,6 +38,19 @@ export class AdminProvider extends React.Component {
 
     componentDidMount() {
         this.populateAll();
+        this._subscription = authService.subscribe(() => this.populateRole());
+        this.populateRole();
+    }
+    componentWillUnmount() {
+        authService.unsubscribe(this._subscription);
+    }
+    async populateRole() {
+        const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+        this.setState({
+            isAuthenticated,
+            role: user && user.role
+        });
+
     }
     async populateAll() {
         const token = await authService.getAccessToken();
@@ -89,12 +104,14 @@ export class AdminProvider extends React.Component {
         this.setState({
             filter
         })
+
     }
     updateOrderState = orderState => {
         this.setState({
             orderState
         })
     }
+
     handleOrderChange = e => {
         e.persist()
         const value = e.target.value;
@@ -110,6 +127,7 @@ export class AdminProvider extends React.Component {
         }
         else if (e.target.name == "supplierId") {
             const _supplier = this.state.supplierList.find(item => item.supplierId == value);
+            this.updateFilter({supplier: _supplier.supplierId });
             this.setState(prevState => ({
                 ...prevState,
                 orderState: {
@@ -176,14 +194,22 @@ export class AdminProvider extends React.Component {
         alert("Din Ordrer er blevet oprettet");
     }
 
-    static getSupplierWares(wares, filter) {
+    getSupplierWares = (wares, filter) => {
+        const role = this.state.role;
         const { supplier, } = filter
         let result = wares
         if (supplier) {
-            result = result.filter(item => item.supplierId == supplier)
-            
+            if (role && role.includes("admin")) {
+                result = result.filter(item => item.supplierId == supplier)
+                
+            }
+            else {     
+                result = result.filter(item => item.supplierId == supplier)
+                result = result.filter(item => item.approval == true)
+
+            }
         }
-        return result
+            return result
         
     }
     static getOrderShipment(shipments, filter) {
@@ -196,6 +222,19 @@ export class AdminProvider extends React.Component {
         return result
 
     }
+    SupplierRoleFIlter = (supplierList) => {
+        const role = this.state.role;
+        let result = supplierList
+        if (role && role.includes("admin")) {
+            return result
+        }
+        else {
+            result = result.filter(item => item.approval == true)
+            return result
+        }
+        
+    }
+
     addShipment = (item) => {
         if (this.state.orderState.shipments.some(i => (i.name === item.name))) {
             this.setState(prevState => ({
@@ -269,14 +308,16 @@ export class AdminProvider extends React.Component {
     render() {
         const { children } = this.props
         const { projectList, filter, supplierList, departmentList, wareList, shipmentList, shipmentListState, orderState, template } = this.state
-        const filteredWares = AdminProvider.getSupplierWares(
+        const filteredWares = this.getSupplierWares(
             wareList,
             filter
         )
+        const RoleBaseSuppliers = this.SupplierRoleFIlter(supplierList)
         return (
             <AdminContext.Provider
                 value={{
                     supplierList,
+                    RoleBaseSuppliers,
                     departmentList,
                     projectList,
                     shipmentList,

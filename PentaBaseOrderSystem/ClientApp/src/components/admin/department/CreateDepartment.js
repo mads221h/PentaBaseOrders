@@ -1,10 +1,10 @@
 ﻿import React, { Component } from 'react';
-
+import authService from '../../api-authorization/AuthorizeService';
 
 
 function CreateDepartment() {
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         console.log('test')
         event.preventDefault();
         const data = new FormData(event.target);
@@ -13,9 +13,12 @@ function CreateDepartment() {
             object[key] = value;
         });
         var json = JSON.stringify(object);
+        const token = await authService.getAccessToken();
         fetch('api/SampleData/CreateDepartment', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,},
             body: json,
         });
         alert("Din afdeling er blevet oprettet");

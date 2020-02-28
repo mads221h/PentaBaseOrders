@@ -68,7 +68,7 @@ function CreateOrder(props) {
             >
             <div class="form-group">
                     <label>
-                        Title: {props.orderState.title}
+                        Title: 
                     
                         </label>
 

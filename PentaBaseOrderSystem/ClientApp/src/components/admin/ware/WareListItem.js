@@ -1,18 +1,19 @@
 ﻿import React, { useState, Fragment } from 'react';
+import authService from '../../api-authorization/AuthorizeService';
 
 
 
 function WareListItem(props) {
-
     const [itemState, setItemState] = useState(props.item);
-    const handleDelete = (item) => {
-        console.log(item)
-
-
+    const handleDelete = async (item) => {
         var json = JSON.stringify(item);
+        const token = await authService.getAccessToken();
         fetch('api/SampleData/DeleteWare', {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
             body: json,
         });
         setItemState();

@@ -17,7 +17,6 @@ function Project() {
                         <h1>Varer</h1>
                         <Tabs defaultActiveKey="OverView">
                             <Tab eventKey="OverView" title="Overblik">
-                                <h3>Overblik</h3>
                                 <WareFilter updateFilter={updateFilter} supplier={supplierList} />
                                 <WareList wareList={filteredWares} />
                             </Tab>

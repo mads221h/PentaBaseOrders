@@ -24,11 +24,11 @@ function Project() {
                             <h1>Projeker</h1>
                             <Tabs defaultActiveKey="OverView">
                                 <Tab eventKey="OverView" title="Overblik">
-                                    <h3>Overblik</h3>
+                                    
                                     <ProjectList projectList={projectList} />
                                 </Tab>
                                 <Tab eventKey="Opret" title="Opret">
-                                    <h3>Opret nyt projekt</h3>
+                                    
                                     <CreateProject />
                                 </Tab>
                             </Tabs>

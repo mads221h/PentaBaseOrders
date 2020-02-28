@@ -1,10 +1,10 @@
 ﻿import React, { Component, Fragment } from 'react';
-
+import authService from '../../api-authorization/AuthorizeService';
 
 
 function CreateProject() {
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         console.log('test')
         event.preventDefault();
         const data = new FormData(event.target);
@@ -13,9 +13,10 @@ function CreateProject() {
             object[key] = value;
         });
         var json = JSON.stringify(object);
+        const token = await authService.getAccessToken();
         fetch('api/SampleData/CreateProject', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, },
             body: json,
         });
         alert("Dit Projekt er blevet oprettet");

@@ -1,8 +1,9 @@
 ﻿import React, { Component } from 'react';
+import authService from '../../api-authorization/AuthorizeService';
 function CreateSupplier() {
 
-    function handleSubmit(event) {
-        console.log('test')
+    async function handleSubmit(event) {
+
         event.preventDefault();
         const data = new FormData(event.target);
         var object = {};
@@ -10,9 +11,13 @@ function CreateSupplier() {
             object[key] = value;
         });
         var json = JSON.stringify(object);
+        const token = await authService.getAccessToken();
         fetch('api/SampleData/CreateSupplier', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                 'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${token}`,
+            },
             body: json,
         });
         alert("Din Leverandør er blevet oprettet");
@@ -20,7 +25,6 @@ function CreateSupplier() {
 
             return (
                 <form onSubmit={handleSubmit}>
-                    <label><h2>Opret din leverandør her</h2></label>
                     <div class="form-group">
                         <label>
                             Navn
