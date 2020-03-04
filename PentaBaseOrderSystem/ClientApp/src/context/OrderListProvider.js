@@ -5,7 +5,11 @@ import authService from '../components/api-authorization/AuthorizeService'
 const DefaultState = {
     orderList: [],
     filter: {},
-    supplierList:[],
+    supplierList: [],
+    orderState: {},
+    role: null,
+    userName: null,
+    isAuthenticated: false,
 }
 const OrderListContext = React.createContext(DefaultState)
 
@@ -14,21 +18,23 @@ export const OrderListConsumer = OrderListContext.Consumer
 
 export class OrderListProvider extends React.Component {
     state = DefaultState
-
     componentDidMount() {
-        //fetch('api/SampleData/GetOrderList')
-        //    .then(res => res.json())
-        //    .then(res => {
-        //        this.setState({ orderList: res })
-        //    })
-        //fetch('api/SampleData/GetSupplierList')
-        //    .then(response => response.json())
-        //    .then(data => {
-        //        this.setState({ supplierList: data })
-                
-        //    })
+        this._subscription = authService.subscribe(() => this.populateRole());
+        this.populateUser();
         this.populateSupplier()
         this.populateOrder()
+    }
+    componentWillUnmount() {
+        authService.unsubscribe(this._subscription);
+    }
+    async populateUser() {
+        const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+        this.setState({
+            isAuthenticated,
+            role: user && user.role,
+            userName: user && user.name,
+        });
+
     }
     async populateSupplier() {
         const token = await authService.getAccessToken();
@@ -57,6 +63,28 @@ export class OrderListProvider extends React.Component {
         fetch('api/SampleData/Approval', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
+            body: json,
+        })
+    }
+    handleApproveOrder = async (listing) => {
+        const token = await authService.getAccessToken();
+        await this.setState({
+            orderState: listing
+        })
+        await this.setState(prevState => ({
+            ...prevState,
+            orderState: {
+                ...prevState.orderState,
+                approvedBy: this.state.userName
+            }
+        }))
+        var json = JSON.stringify(this.state.orderState);
+        fetch('api/SampleData/Approval', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: json,
         })
     }
@@ -133,6 +161,7 @@ export class OrderListProvider extends React.Component {
                     allListings: orderList,
                     filteredListings,
                     updateFilter: this.updateFilter,
+                    handleApproveOrder: this.handleApproveOrder,
                 }}
             >
                 {children}

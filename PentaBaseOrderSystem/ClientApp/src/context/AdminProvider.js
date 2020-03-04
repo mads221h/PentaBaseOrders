@@ -6,6 +6,7 @@ const DefaultState = {
     departmentList: [],
     isAuthenticated: false,
     role: null,
+    userName: null,
     wareList: [],
     supplierList: [],
     projectList: [],
@@ -20,12 +21,13 @@ const DefaultState = {
     },
     orderState: {
         title: "",
-        supplierName:"",
+        supplierName: "",
         project: "",
         department: "",
         price: 0,
         shipments: [],
     },
+    supplierState:{},
     shipmentListState: [],
 }
 const AdminContext = React.createContext(DefaultState)
@@ -48,7 +50,8 @@ export class AdminProvider extends React.Component {
         const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
         this.setState({
             isAuthenticated,
-            role: user && user.role
+            role: user && user.role,
+            userName: user && user.name,
         });
 
     }
@@ -111,7 +114,29 @@ export class AdminProvider extends React.Component {
             orderState
         })
     }
-
+    handleApproveSupplier = async (listing) => {
+        const token = await authService.getAccessToken();
+        await this.setState({
+            supplierState: listing
+        })
+        await this.setState(prevState => ({
+            ...prevState,
+            supplierState: {
+                ...prevState.supplierState,
+                approvedBy: this.state.userName
+            }
+        }))
+        console.log("This is the user:" + this.state.userName)
+        console.log(this.state.supplierState)
+        var json = JSON.stringify(this.state.supplierState);
+        fetch('api/SampleData/ApproveSupplier', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`},
+            body: json,
+        })
+    }
     handleOrderChange = e => {
         e.persist()
         const value = e.target.value;
@@ -127,17 +152,20 @@ export class AdminProvider extends React.Component {
         }
         else if (e.target.name == "supplierId") {
             const _supplier = this.state.supplierList.find(item => item.supplierId == value);
-            this.updateFilter({supplier: _supplier.supplierId });
-            this.setState(prevState => ({
-                ...prevState,
-                orderState: {
-                    ...prevState.orderState,
-                    [e.target.name]: parseInt(value),
-                    supplier: _supplier,
-                    supplierName: _supplier.name,
-                }
+            if (_supplier) {
+                this.updateFilter({ supplier: _supplier.supplierId });
+                this.setState(prevState => ({
+                    ...prevState,
+                    orderState: {
+                        ...prevState.orderState,
+                        [e.target.name]: parseInt(value),
+                        supplier: _supplier,
+                        supplierName: _supplier.name,
+                        shipments: [],
+                    }
 
-            }))
+                }))
+            }
         }
         //else if (e.target.name == "projectId") {
         //    const _project = this.state.projectList.find(item => item.projectId == value);
@@ -208,8 +236,10 @@ export class AdminProvider extends React.Component {
                 result = result.filter(item => item.approval == true)
 
             }
-        }
             return result
+        }
+        return [];
+            
         
     }
     static getOrderShipment(shipments, filter) {
@@ -303,7 +333,6 @@ export class AdminProvider extends React.Component {
             else {
                 this.removeShipment(item)
             }
-        
     }
     render() {
         const { children } = this.props
@@ -332,6 +361,7 @@ export class AdminProvider extends React.Component {
                     removeShipment: this.removeShipment,
                     removeOneShipment: this.removeOneShipment,
                     handleOrderChange: this.handleOrderChange,
+                    handleApproveSupplier: this.handleApproveSupplier,
                     
                 }}
             >

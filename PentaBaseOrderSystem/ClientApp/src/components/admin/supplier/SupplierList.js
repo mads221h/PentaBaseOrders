@@ -7,14 +7,15 @@ function SupplierList(props) {
             
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Location</th>
-                    <th>Last Bought From</th>
+                    <th>Navn</th>
+                    <th>Lokation</th>
+                    <th>Sidst købt fra</th>
+                    <th>Godkendelse</th>
                 </tr>
             </thead>
             <tbody>
                 {props.supplierList.map(item =>
-                    <SupplierListItem item={item} />
+                    <SupplierListItem item={item} handleApproveSupplier={props.handleApproveSupplier} />
                 //<tr key={item.id}>
                 //    <td>{item.title}</td>
                 //    <td><button class="form-control" onClick={(e) => handleDelete(item)}>Delete</button></td>

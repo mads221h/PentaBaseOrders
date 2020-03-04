@@ -24,7 +24,7 @@ namespace Models
         public int Price { get; set; }
         [Required]
         public bool Approval { get; set; }
-        //public string ApprovedById { get; set; }
+        public string ApprovedBy { get; set; }
         [Required]
         public bool Payment { get; set; }
         [Required]

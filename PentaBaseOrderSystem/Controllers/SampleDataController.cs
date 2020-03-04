@@ -4,9 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using PentaBaseOrderSystem.Data;
+using PentaBaseOrderSystem.Models;
 using static IdentityServer4.IdentityServerConstants;
 
 namespace PentaBaseOrderDemo.Controllers
@@ -228,14 +230,38 @@ namespace PentaBaseOrderDemo.Controllers
         }
 
         [HttpPut("[action]")]
-        public void Approval([FromBody] Order data)
+        public Order Approval([FromBody] Order data)
         {
-            var order = _db.Order.FirstOrDefault(x => x.OrderId == data.OrderId);
-            order.Approval = true;
-            _db.Order.Update(order);
-            _db.SaveChanges();
 
+            var user = data;
+            if (user.ApprovedBy != null)
+            {
+                var order = _db.Order.FirstOrDefault(x => x.OrderId == data.OrderId);
+                order.ApprovedBy = user.ApprovedBy;
+                order.Approval = true;
+                _db.Order.Update(order);
+                _db.SaveChanges();
+            }
+            else { }
+            return user;
+            //var response = await _client.PostAsJsonAsync(BaseEndPoint, data);
+            //response.EnsureSuccessStatusCode();
+        }
+        [HttpPut("[action]")]
+        public void ApproveSupplier([FromBody] Supplier data)
+        {
 
+            
+            if (data.ApprovedBy != null)
+            {
+                var supplier = _db.Supplier.FirstOrDefault(x => x.SupplierId == data.SupplierId);
+                supplier.ApprovedBy = data.ApprovedBy;
+                supplier.Approval = true;
+                _db.Supplier.Update(supplier);
+                _db.SaveChanges();
+            }
+            else { }
+            
             //var response = await _client.PostAsJsonAsync(BaseEndPoint, data);
             //response.EnsureSuccessStatusCode();
         }
@@ -300,6 +326,20 @@ namespace PentaBaseOrderDemo.Controllers
                 _db.SaveChanges();
             }
             
+        }
+        [HttpDelete("[action]")]
+        public void DeleteDepartment([FromBody] Department data)
+        {
+            if (data is null)
+            {
+
+            }
+            else
+            {
+                _db.Remove(_db.Department.Single(x => x.DepartmentId == data.DepartmentId));
+                _db.SaveChanges();
+            }
+
         }
         [HttpDelete("[action]")]
         public void DeleteOrder([FromBody] Order data)

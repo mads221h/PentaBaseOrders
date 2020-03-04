@@ -41,7 +41,8 @@ function CreateWare(props) {
                     <label>
                         Leverandør:
                         </label>
-                    <select className="form-control" name="SupplierId" required>
+                <select className="form-control" name="SupplierId" required>
+                    <option >Vælg Leverandør</option>
                     {props.supplierList.map(supplier =>
                         <option key={supplier.supplierId} value={supplier.supplierId} >{supplier.name}</option>
                         )}

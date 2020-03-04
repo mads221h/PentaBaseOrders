@@ -5,7 +5,7 @@ import {
     OrderListProvider,
     OrderListConsumer
 } from '../context/OrderListProvider'
-
+import authService from '../components/api-authorization/AuthorizeService';
 export class Approvals extends Component {
     displayName = Approvals.name
     constructor(props) {
@@ -14,12 +14,10 @@ export class Approvals extends Component {
 
     }
 
-
-
+   
 
     render() {
-
-        return (
+        return(
             <div>
                 <h1>Godkendeler</h1>
                 <OrderListProvider>
@@ -28,12 +26,12 @@ export class Approvals extends Component {
 
 
                         {function (value) {
-                            const { filteredListings, updateFilter, supplierList } = value
+                            const { filteredListings, updateFilter, supplierList, handleApproveOrder } = value
                             return (
                                 <div classname='Container'>
                                     <Filter updateFilter={updateFilter} supplier={supplierList} />
 
-                                    <Listings listings={filteredListings} />
+                                    <Listings listings={filteredListings} handleApproveOrder={handleApproveOrder} />
                                 </div>
                             )
                         }}

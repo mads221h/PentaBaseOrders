@@ -60,7 +60,6 @@ function CreateOrder(props) {
         
     //    alert("Din Ordrer er blevet oprettet");
     //}
-
     return (
         <Fragment>
             <form className="commentForm"
@@ -85,7 +84,7 @@ function CreateOrder(props) {
                     Leverandør:
                         </label>
                     <select class="form-control" name="supplierId" value={props.orderState.supplierId} required onChange={props.handleOrderChange}>
-                   <option>Vælg Leverandør</option>
+                        <option >Vælg Leverandør</option>
                     
                         {props.supplierList.map(supplier =>
                             <option key={supplier.supplierId} value={supplier.supplierId} >{supplier.name}</option>

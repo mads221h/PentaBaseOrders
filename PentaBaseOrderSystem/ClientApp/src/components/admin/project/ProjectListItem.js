@@ -13,7 +13,7 @@ function ProjectListItem(props) {
         const token = await authService.getAccessToken();
         
         var json = JSON.stringify(item);
-        fetch('api/SampleData/Delete', {
+        fetch('api/SampleData/DeleteProject', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

@@ -18,7 +18,6 @@ function WareListItem(props) {
                             <td>{itemState.name}</td>
                             <td>{itemState.price}</td>
                             <td><button class="form-control" onClick={() => props.addShipment(itemState)}>Add</button></td>
-                            <td><button class="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
                         </tr>
                     )
                     :

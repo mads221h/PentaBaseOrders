@@ -55,7 +55,7 @@ function BookItem({ listing }) {
                                 )
             }
             <td><Link to={{
-                pathname: '/OrdreDetails',
+                pathname: '/OrderDetails',
                 state: { orderState: listing }
             }}>Detaljer</Link></td>
         </tr>

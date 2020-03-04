@@ -65,6 +65,13 @@ export class NavMenu extends Component {
                                 <NavLink tag={Link} className="text-dark" to="/Ordre">Opret Ordre</NavLink>
                             </NavItem>
                             {
+                                role && role.includes("bookkeeping") ?
+                                    <NavItem>
+                                        <NavLink tag={Link} className="text-dark" to="/Bookkeeping">Bookkeeping</NavLink>
+                                    </NavItem>
+                                    : null
+                            }
+                            {
                                 role && role.includes("admin") ?
                                     <Fragment>
                             
@@ -85,9 +92,6 @@ export class NavMenu extends Component {
                                         <NavLink tag={Link} className="text-dark" to="/Admin/vare">Vare</NavLink>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        <NavLink tag={Link} className="text-dark" to="/Admin/Skabelon">Skabelon</NavLink>
-                                    </DropdownItem>
-                                    <DropdownItem>
                                         <NavLink tag={Link} className="text-dark" to="/Admin/Leverandoer">Leverandør</NavLink>
                                     </DropdownItem>
                                     <DropdownItem>
@@ -97,13 +101,7 @@ export class NavMenu extends Component {
                                         </UncontrolledDropdown>
                                     </Fragment>
                                     : null}
-                            {
-                                role && role.includes("bookkeeping") ?
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-dark" to="/Bookkeeping">Bookkeeping</NavLink>
-                                        </NavItem>
-                                    : null
-                            }
+                            
                 
                 <LoginMenu>
                 </LoginMenu>

@@ -7,12 +7,32 @@ function OrderDetails(props) {
     const [orderState, setOrderState] = useState(props.location.state.orderState);
     const [approvalState, setApprovalState] = useState(props.location.state.orderState.approval);
     const [paymentState, setPaymentState] = useState(props.location.state.orderState.payment);
+    const [auth, setAuth] = useState({ isAuthenticated: null, role: null, name: null });
+    
+    
     useEffect(() => {
+        
+        const sub = authService.subscribe(() => handleAuth());
+        handleAuth();
+
         setPaymentState(props.location.state.orderState.payment);
         setApprovalState(props.location.state.orderState.approval);
         getOrder(props.location.state.orderState.orderId)
+
+        return function cleaup() {
+            authService.unsubscribe(sub);
+        }
     }, [props]);
 
+    async function handleAuth() {
+        const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+        setAuth({
+            isAuthenticated: isAuthenticated,
+            role: user && user.role,
+            name: user && user.name,
+        });
+
+    }
     async function getOrder(orderId){
         const token = await authService.getAccessToken();
         const response = await fetch(`api/SampleData/GetOrder/${orderId}`, {
@@ -21,8 +41,34 @@ function OrderDetails(props) {
         const data = await response.json();
         setOrderState(data);
     }
+    const handlePayment = (listing) => {
+        console.log(listing)
+
+        setPaymentState({ payment: true })
+        var json = JSON.stringify(listing);
+        fetch('api/SampleData/Payment', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: json,
+        });
+    }
+    const handleApproveOrder = async () => {
+        var object = { orderId: orderState.orderId, approvedBy: auth.name }
+        const token = await authService.getAccessToken();     
+        setApprovalState({ approval: true });
+        var json = JSON.stringify(object);
+        await fetch('api/SampleData/Approval', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: json,
+        })
+    }
+
+    const roles = auth.role;
     return (
-        
         <Fragment>
             <form >
                 <label>Id:</label>
@@ -35,6 +81,8 @@ function OrderDetails(props) {
                 <input name="Department" disabled value={orderState.department} className="form-control" />
                 <label>Leverandør: </label>
                 <input name="Supplier" disabled value={orderState.supplierName} className="form-control" />
+                <label>Godkendt af: </label>
+                <input name="ApprovedBy" disabled value={orderState.approvedBy} placeholder="Ikke godkendt"className="form-control" />
             </form>
             <h3>Vare liste:</h3>
 
@@ -60,15 +108,26 @@ function OrderDetails(props) {
                             (<td> <p>Betalt</p></td>)
                             :
                             (<td><p>Mangler betaling</p></td>)
-                        }{paymentState ?
-                            (<td> </td>)
-                            :
-                            (<td><button class="form-control" onClick={(e) => handlePayment(orderState)}>Betal</button></td>)
-                        }{approvalState ?
-                            (<td> </td>)
-                            :
-                            (<td><button class="form-control" onClick={(e) => handleClick(orderState)}>Godkend</button></td>)
                         }
+
+                        {
+                            
+                            roles && roles.includes("bookkeeping") ? (
+                                paymentState ?
+                                (<td> </td>)
+                                 :
+                                    (<td><button class="form-control" onClick={(e) => handlePayment(orderState)}>Betal</button></td>)
+                                ) : (<td></td>)
+                           
+                        }{
+                            roles && roles.includes("admin") ? (
+                            approvalState ?
+                            (<td> </td>)
+                            :
+                                    (<td><button class="form-control" onClick={(e) => handleApproveOrder()}>Godkend</button></td>)
+                            ) : (<td></td>)
+                        }
+
                     </tr>
                 </tbody>
             </table>

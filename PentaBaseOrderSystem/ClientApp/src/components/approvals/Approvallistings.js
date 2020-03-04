@@ -3,14 +3,14 @@ import ApprovalItem from './ApprovalItem';
 
 
 
-function ApprovalListing({ listings }) {
+function ApprovalListing(props) {
     
     
     
-    if (!listings) {
+    if (!props.listings) {
         return null
     }
-    
+    console.log(props.userName)
     return (
         <table className='table'>
             <thead>
@@ -25,8 +25,8 @@ function ApprovalListing({ listings }) {
                 </tr>
             </thead>
             <tbody>
-                {listings.map(listing =>
-                    <ApprovalItem listing={listing}/>
+                {props.listings.map(listing =>
+                    <ApprovalItem listing={listing} handleApproveOrder={props.handleApproveOrder} />
                 )}
             </tbody>
         </table>
