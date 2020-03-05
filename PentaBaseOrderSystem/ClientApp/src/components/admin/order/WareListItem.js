@@ -17,7 +17,7 @@ function WareListItem(props) {
                         <tr>
                             <td>{itemState.name}</td>
                             <td>{itemState.price}</td>
-                            <td><button class="form-control" onClick={() => props.addShipment(itemState)}>Add</button></td>
+                            <td><button className="form-control" onClick={() => props.addShipment(itemState)}>Add</button></td>
                         </tr>
                     )
                     :

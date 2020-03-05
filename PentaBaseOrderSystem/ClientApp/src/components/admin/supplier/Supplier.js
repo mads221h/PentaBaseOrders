@@ -20,7 +20,7 @@ function Supplier() {
                 {function (value) {
                 const { supplierList, handleApproveSupplier } = value
                     return (
-                        <div classname='Container'>
+                        <div className='Container'>
                             <h1>Supplier</h1>
                             <Tabs defaultActiveKey="OverView">
                                 <Tab eventKey="OverView" title="Overblik">

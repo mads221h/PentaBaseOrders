@@ -35,11 +35,15 @@ function ShipmentList(props) {
                     <th>Action</th>
                 </tr>
             </thead>
-            {props.shipmentList.shipments.map(item =>
-                <ShipmentListItem item={item} removeShipment={props.removeShipment}/>,
+            <tbody>
+            {props.shipmentList.shipments.map((item, index) =>
+                <ShipmentListItem key={index} item={item} removeShipment={props.removeShipment} />,
                 
             )}
-            <h4> Total Pris: {price} </h4>
+                <tr>
+                    <td><b> Total Pris: {price} </b></td>
+                </tr>
+                </tbody>    
         </table>
     )
 }

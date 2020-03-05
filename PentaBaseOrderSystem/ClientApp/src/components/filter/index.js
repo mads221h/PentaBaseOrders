@@ -15,11 +15,12 @@ class Filter extends React.Component {
         payment: '',
         approvals: ['Er Godkendt', 'Ikke Godkendt'],
         payments: ['Er Betalt', 'Ikke Betalt'],
+        search: '',
+        _orderId:'',
     }
     render() {
         const containerClasses = classnames('container', 'mb-1', styles.container)
         const formClasses = classnames('form-horizontal', styles.form)
-        const suppliers = []
 
         return (
 
@@ -28,7 +29,36 @@ class Filter extends React.Component {
                 <form className={formClasses} noValidate
                     onChange={() => setTimeout(() => this.props.updateFilter(this.state), 0)}
                 >
-                    <p className="mb-1">Filtrer listen</p>
+                    <p className="mb-1">Filter</p>
+                    <div className={styles.formColumns}>
+                        <label className="form-label" htmlFor="Search">
+                            Søg efter navn
+                  </label>
+
+                        <input
+                            className="form-input"
+                            id="search"
+                            placeholder="Search"
+                            value={this.state.search}
+                            onChange={event => this.setState({ search: event.target.value })}
+                        />
+                    </div>
+                    <div className={styles.formColumns}>
+                        <label className="form-label" htmlFor="_orderId">
+                            Id
+                  </label>
+
+                        <input
+                            className="form-input"
+                            onWheel={event => { event.preventDefault(); }}
+                            max="10000000"
+                            type="number"
+                            id="_orderId"
+                            placeholder="000"
+                            value={this.state._orderId}
+                            onChange={event => this.setState({ _orderId: Number(event.target.value) })}
+                        />
+                    </div>
                     <div className={styles.formColumns}>
                         <label className="form-label" htmlFor="price-from">
                             Pris Fra
@@ -36,7 +66,7 @@ class Filter extends React.Component {
 
                         <input
                             className="form-input"
-                            min="0"
+                            onWheel={event => { event.preventDefault(); }}
                             max="10000000"
                             type="number"
                             id="price-from"

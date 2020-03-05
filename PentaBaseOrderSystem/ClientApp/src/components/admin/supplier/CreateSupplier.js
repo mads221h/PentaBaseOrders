@@ -25,37 +25,37 @@ function CreateSupplier() {
 
             return (
                 <form onSubmit={handleSubmit}>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label>
                             Navn
                         </label>
 
-                        <input type="text" name="Name" class="form-control" required />
+                        <input type="text" name="Name" className="form-control" required />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label>
                             Location:
                         </label>
 
-                        <input type="text" name="Location" class="form-control" required />
+                        <input type="text" name="Location" className="form-control" required />
 
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label>
                             Mail:
                         </label>
-                        <input type="email" name="Email" class="form-control" required />
+                        <input type="email" name="Email" className="form-control" required />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label>
                             Beskrivelse:
                         </label>
-                        <input type="Textarea" name="Description" class="form-control" required />
+                        <input type="Textarea" name="Description" className="form-control" required />
                     </div>
                     
 
 
-                    <input type="submit" class="btn btn-primary" value="Submit" />
+                    <input type="submit" className="btn btn-primary" value="Submit" />
                 </form>
             );
         }

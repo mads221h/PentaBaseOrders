@@ -26,22 +26,22 @@ function CreateProject() {
         <Fragment>
             <form onSubmit={handleSubmit}>
                 
-                <div classname="form-group">
+                <div className="form-group">
 
                     <label>
                         Projekt Title
                 </label>
 
-                    <input type="text" name="Title" class="form-control" required />
+                    <input type="text" name="Title" className="form-control" required />
                 </div>
 
-                <div class="form-group">
+                <div className="form-group">
                     <label>
                         Projekt Ejer
                         </label>
-                    <input type="text" name="Owner" class="form-control" required />
+                    <input type="text" name="Owner" className="form-control" required />
                 </div>
-                <input type="submit" class="btn btn-primary" value="Submit" />
+                <input type="submit" className="btn btn-primary" value="Submit" />
             </form>
             
         </Fragment>

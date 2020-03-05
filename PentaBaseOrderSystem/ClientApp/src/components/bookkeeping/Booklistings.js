@@ -26,7 +26,7 @@ function BookListing({ listings }) {
             </thead>
             <tbody>
                 {listings.map(listing =>
-                    <BookItem listing={listing}/>
+                    <BookItem key={listing.orderId} listing={listing} />
                 )}
             </tbody>
         </table>

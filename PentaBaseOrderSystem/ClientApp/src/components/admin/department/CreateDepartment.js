@@ -35,7 +35,7 @@ function CreateDepartment() {
                 <input type="text" name="Title" className="form-control" required />
             </div>
 
-            <div class="form-group">
+            <div className="form-group">
                 <label>
                     Afdelings leder
                         </label>

@@ -13,6 +13,7 @@ namespace PentaBaseOrderSystem
     {
         public static void Main(string[] args)
         {
+            
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -21,7 +22,6 @@ namespace PentaBaseOrderSystem
             .ConfigureLogging(logging =>
             {
                 logging.ClearProviders();
-                logging.AddConsole();
             })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

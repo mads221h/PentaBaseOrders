@@ -39,11 +39,11 @@ namespace PentaBaseOrderSystem
                 .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAuthorization(options =>
             {
@@ -92,8 +92,8 @@ namespace PentaBaseOrderSystem
 
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseIdentityServer();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

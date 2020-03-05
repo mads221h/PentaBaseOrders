@@ -16,7 +16,8 @@ function Listings({ listings }) {
             <thead>
                 <tr>
                     <th>Dato</th>
-                    <th>Vare type</th>
+                    <th>Ordre Id</th>
+                    <th>Ordre Title</th>
                     <th>Pris</th>
                     <th>Leverandoer</th>
                     <th>Godkendelse</th>
@@ -27,7 +28,7 @@ function Listings({ listings }) {
             </thead>
             <tbody>
                 {listings.map(listing =>
-                    <Item listing={listing} />
+                    <Item key={listing.orderId} listing={listing} />
                 )}
             </tbody>
         </table>

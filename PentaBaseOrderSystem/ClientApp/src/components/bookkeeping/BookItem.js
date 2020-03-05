@@ -50,7 +50,7 @@ function BookItem({ listing }) {
                                 :
                                 (
                                     <td>
-                                        <button class="form-control" onClick={(e) => handlePayment(listing)}>Betal</button>
+                                        <button className="form-control" onClick={(e) => handlePayment(listing)}>Betal</button>
                                     </td>
                                 )
             }

@@ -46,7 +46,7 @@ function ApprovalItem(props) {
                     )
                     :
                     (
-                        <td><button class="form-control" onClick={(e) => handleClick(props.listing)}>Godkend</button></td>
+                        <td><button className="form-control" onClick={(e) => handleClick(props.listing)}>Godkend</button></td>
                     )
             }
             <td><Link to={{

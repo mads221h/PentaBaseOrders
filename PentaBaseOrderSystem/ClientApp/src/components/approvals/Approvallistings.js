@@ -26,7 +26,7 @@ function ApprovalListing(props) {
             </thead>
             <tbody>
                 {props.listings.map(listing =>
-                    <ApprovalItem listing={listing} handleApproveOrder={props.handleApproveOrder} />
+                    <ApprovalItem key={listing.orderId} listing={listing} handleApproveOrder={props.handleApproveOrder} />
                 )}
             </tbody>
         </table>

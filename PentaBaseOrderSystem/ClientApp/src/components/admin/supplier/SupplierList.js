@@ -15,7 +15,7 @@ function SupplierList(props) {
             </thead>
             <tbody>
                 {props.supplierList.map(item =>
-                    <SupplierListItem item={item} handleApproveSupplier={props.handleApproveSupplier} />
+                    <SupplierListItem key={item.supplierId} item={item} handleApproveSupplier={props.handleApproveSupplier} />
                 //<tr key={item.id}>
                 //    <td>{item.title}</td>
                 //    <td><button class="form-control" onClick={(e) => handleDelete(item)}>Delete</button></td>

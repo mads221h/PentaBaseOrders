@@ -11,7 +11,7 @@ function Item({ listing }) {
     return (
         <tr key={listing.orderId}>
             <td>{listing.date}</td>
-
+            <td>{listing.orderId}</td>
             <td>{listing.title}</td>
             <td>{listing.price}</td>
             <td>{listing.supplierName}</td>

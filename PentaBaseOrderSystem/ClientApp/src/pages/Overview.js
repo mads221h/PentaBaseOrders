@@ -29,7 +29,7 @@ export class Overview extends Component {
                         {function (value) {
                             const { filteredListings, updateFilter, supplierList } = value
                             return (
-                                <div classname='Container'>
+                                <div className='Container'>
                                     <Filter updateFilter={updateFilter} supplier={supplierList} />
 
                                     <Listings listings={filteredListings}  />

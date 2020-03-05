@@ -99,9 +99,15 @@ export class OrderListProvider extends React.Component {
         });
     }
     static applyFilter(listings, filter) {
-        const { priceFrom, supplier, sortOrder, dateFrom, dateTo, approval, payment } = filter
+        const { priceFrom, supplier, sortOrder, dateFrom, dateTo, approval, payment, search, _orderId } = filter
 
         let result = listings
+        if (search) {
+            result = result.filter(item => item.title.toLowerCase().includes(search))
+        }
+        if (_orderId) {
+            result = result.filter(item => item.orderId == _orderId)
+        }
         if (priceFrom) {
             const from = priceFrom
             result = result.filter(item => item.price >= from)

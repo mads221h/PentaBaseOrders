@@ -65,7 +65,7 @@ function CreateOrder(props) {
             <form className="commentForm"
                 //onChange={() => props.updateOrderState(orderState)}
             >
-            <div class="form-group">
+            <div className="form-group">
                     <label>
                         Title: 
                     
@@ -74,16 +74,16 @@ function CreateOrder(props) {
                 <input type="text"
                     name="title"
                         value={props.orderState.title}
-                    class="form-control"
+                    className="form-control"
                     required
                         onChange={props.handleOrderChange}
                 />
             </div>
-            <div class="form-group">
+            <div className="form-group">
                 <label>
                     Leverandør:
                         </label>
-                    <select class="form-control" name="supplierId" value={props.orderState.supplierId} required onChange={props.handleOrderChange}>
+                    <select className="form-control" name="supplierId" value={props.orderState.supplierId} required onChange={props.handleOrderChange}>
                         <option >Vælg Leverandør</option>
                     
                         {props.supplierList.map(supplier =>
@@ -91,11 +91,11 @@ function CreateOrder(props) {
                     )}
                 </select>
             </div>
-            <div class="form-group">
+            <div className="form-group">
                 <label>
                     Projekt:
                 </label>
-                    <select class="form-control" name="project" value={props.orderState.project.projectId} onChange={props.handleOrderChange} required>
+                    <select className="form-control" name="project" value={props.orderState.project.projectId} onChange={props.handleOrderChange} required>
                     <option>Vælg Projekt</option>
                         {props.projectList.map(project =>
                             <option key={project.projectId} value={project.title} >{project.title}</option>
@@ -103,11 +103,11 @@ function CreateOrder(props) {
                     )}
                 </select>
             </div>
-            <div class="form-group">
+            <div className="form-group">
                 <label>
                     Afdeling:
                 </label>
-                    <select class="form-control" name="department" value={props.orderState.department.projectId} onChange={props.handleOrderChange} required>
+                    <select className="form-control" name="department" value={props.orderState.department.projectId} onChange={props.handleOrderChange} required>
                     <option>Vælg Afdeling</option>
                         {props.departmentList.map(department =>
                             <option key={department.departmentId} value={department.title} >{department.title}</option>

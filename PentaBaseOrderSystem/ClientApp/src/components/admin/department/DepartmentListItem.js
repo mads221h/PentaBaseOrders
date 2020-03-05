@@ -30,7 +30,7 @@ function DepartmentListItem(props) {
                         <tr key={itemState.DepartmentId}>
                             <td>{itemState.title}</td>
                             <td>{itemState.leader}</td>
-                            <td><button class="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
+                            <td><button className="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
                         </tr>
                     )
                     :

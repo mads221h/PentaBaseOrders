@@ -58,7 +58,7 @@ function SupplierListItem(props) {
                                         <td><button class="form-control" onClick={(e) => handleApprove(itemState)}>Godkend</button></td>
                                     )
                             }
-                            <td><button class="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
+                            <td><button className="form-control" onClick={(e) => handleDelete(itemState)}>Delete</button></td>
                             
                         </tr>
                     )

@@ -20,7 +20,7 @@ function Project() {
                 {function (value) {
                     const { projectList } = value
                     return (
-                        <div classname='Container'>
+                        <div className='Container'>
                             <h1>Projeker</h1>
                             <Tabs defaultActiveKey="OverView">
                                 <Tab eventKey="OverView" title="Overblik">

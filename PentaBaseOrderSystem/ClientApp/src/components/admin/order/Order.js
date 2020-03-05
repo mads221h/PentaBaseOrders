@@ -73,9 +73,9 @@ export class Order extends Component {
                             handleOrderChange,
                             updateFilter, } = value
                         return (
-                            <div classname='Container'>
+                            <div className='Container'>
                                
-                                <h2 class="blue" >Opret Ordre</h2>
+                                <h2 className="blue" >Opret Ordre</h2>
                                 <Tabs defaultActiveKey="Info">
                                     <Tab eventKey="Info" title="1: Indtast info">
                                         <CreateOrder
@@ -101,7 +101,7 @@ export class Order extends Component {
                                     <Tab eventKey="Confirm" title="3: Godkend og opret">
                                         <OrderConfirm orderState={orderState} removeShipment={removeOneShipment}/>
 
-                                        <button class="form-control" onClick={handleCreate} > Opret Order</button>
+                                        <button className="form-control" onClick={handleCreate} > Opret Order</button>
                                     </Tab>
                                 </Tabs>
                                 

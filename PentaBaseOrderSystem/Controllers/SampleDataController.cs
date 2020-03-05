@@ -16,8 +16,9 @@ namespace PentaBaseOrderDemo.Controllers
    
     
     [Route("api/[controller]")]
+    [Authorize]
     //[Authorize(LocalApi.PolicyName)]
-    //[Authorize(Policy = "RequireAdministratorRole")]
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class SampleDataController : ControllerBase
     {
         //private readonly HttpClient _client;
